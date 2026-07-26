@@ -1,10 +1,10 @@
 .grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--spacing-4);
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -13,7 +13,9 @@
 .card {
   display: flex;
   flex-direction: column;
-  padding: var(--spacing-6);
+  align-items: center;
+  text-align: center;
+  padding: var(--spacing-6) var(--spacing-4);
   background: var(--color-bg-base);
   border: 1px solid var(--color-bg-elevated);
   border-radius: var(--radius-md);

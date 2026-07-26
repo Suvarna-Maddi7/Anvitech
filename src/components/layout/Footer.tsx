@@ -1,7 +1,8 @@
 import React from 'react';
+import Image from 'next/image';
 import { Container } from './Container';
 import { Typography } from '@/components/ui/Typography';
-import { ShieldAlert } from 'lucide-react';
+import logoImg from '@/images/logo.png';
 import styles from './Footer.module.css';
 
 export function Footer() {
@@ -14,7 +15,7 @@ export function Footer() {
           
           <div className={styles.brandCol}>
             <div className={styles.logo}>
-              <ShieldAlert size={28} className={styles.logoIcon} />
+              <Image src={logoImg} alt="Anvitech" width={36} height={36} className={styles.logoImg} />
               <Typography variant="h5" className={styles.logoText}>ANVITECH</Typography>
             </div>
             <Typography variant="body" className={styles.desc}>

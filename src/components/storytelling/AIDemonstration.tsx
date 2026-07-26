@@ -41,21 +41,21 @@ export function AIDemonstration() {
           <div className={styles.textContent}>
             <Typography variant="label" className={styles.label}>AI Technology</Typography>
             <div className={styles.textStack}>
-              <motion.div style={{ opacity: text1Opacity, position: 'absolute' }}>
+              <motion.div className={styles.textLayer} style={{ opacity: text1Opacity }}>
                 <Typography variant="h2">Intelligent Threat Detection.</Typography>
                 <Typography variant="body" className={styles.desc}>
                   Anvitech's edge AI continuously analyzes the environment, instantly distinguishing between humans, vehicles, and safe objects.
                 </Typography>
               </motion.div>
               
-              <motion.div style={{ opacity: text2Opacity, position: 'absolute' }}>
+              <motion.div className={styles.textLayer} style={{ opacity: text2Opacity }}>
                 <Typography variant="h2">Active Tracking.</Typography>
                 <Typography variant="body" className={styles.desc}>
                   Once a threat is identified, the camera locks on, tracks movement across the property, and engages deterrence protocols.
                 </Typography>
               </motion.div>
 
-              <motion.div style={{ opacity: text3Opacity, position: 'absolute' }}>
+              <motion.div className={styles.textLayer} style={{ opacity: text3Opacity }}>
                 <Typography variant="h2">Instant Alerts.</Typography>
                 <Typography variant="body" className={styles.desc}>
                   You receive a push notification with a live video feed in milliseconds, allowing you to trigger two-way audio or an alarm.

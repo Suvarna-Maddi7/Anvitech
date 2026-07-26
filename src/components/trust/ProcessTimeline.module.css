@@ -21,6 +21,7 @@
 }
 
 .lineTrack {
+  display: none;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -29,6 +30,12 @@
   width: 2px;
   background-color: var(--color-bg-elevated);
   z-index: 1;
+}
+
+@media (min-width: 768px) {
+  .lineTrack {
+    display: block;
+  }
 }
 
 .lineFill {
@@ -47,20 +54,13 @@
 
 .stepRow {
   display: flex;
+  align-items: center;
   position: relative;
   width: 100%;
 }
 
-.stepContent, .stepEmpty {
-  width: 50%;
-  display: block;
-}
-
-.stepContent {
-  padding: 0;
-}
-
 .stepNodeWrapper {
+  display: none;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -72,35 +72,45 @@
   box-shadow: 0 0 0 4px var(--color-bg-surface);
 }
 
-.rowLeft .stepContent {
-  padding-right: var(--spacing-4);
-  text-align: right;
+@media (min-width: 768px) {
+  .stepNodeWrapper {
+    display: block;
+  }
 }
 
-.rowLeft .stepEmpty {
-  order: 3;
-}
-
-.rowLeft .stepContent {
-  order: 1;
-}
-
-.rowRight .stepContent {
-  padding-left: var(--spacing-4);
-  order: 3;
-}
-
-.rowRight .stepEmpty {
-  order: 1;
+.stepContent {
+  width: 100%;
+  padding: 0;
+  text-align: left;
 }
 
 @media (min-width: 768px) {
+  .stepContent {
+    width: 50%;
+  }
+
   .rowLeft .stepContent {
     padding-right: var(--spacing-12);
+    text-align: right;
+    order: 1;
   }
-  
+
+  .rowLeft .stepEmpty {
+    order: 3;
+    justify-content: flex-start;
+    padding-left: var(--spacing-12);
+  }
+
   .rowRight .stepContent {
     padding-left: var(--spacing-12);
+    text-align: left;
+    order: 3;
+  }
+
+  .rowRight .stepEmpty {
+    order: 1;
+    justify-content: flex-end;
+    padding-right: var(--spacing-12);
   }
 }
 
@@ -121,26 +131,15 @@
 }
 
 .stepEmpty {
-  display: flex;
-  align-items: center;
-}
-
-.rowLeft .stepEmpty {
-  justify-content: flex-start;
-  padding-left: var(--spacing-4);
-}
-
-.rowRight .stepEmpty {
-  justify-content: flex-end;
-  padding-right: var(--spacing-4);
+  display: none;
 }
 
 @media (min-width: 768px) {
-  .rowLeft .stepEmpty {
-    padding-left: var(--spacing-12);
-  }
-  .rowRight .stepEmpty {
-    padding-right: var(--spacing-12);
+  .stepEmpty {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 

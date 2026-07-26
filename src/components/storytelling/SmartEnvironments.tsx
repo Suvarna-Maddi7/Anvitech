@@ -6,6 +6,7 @@ import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { Container } from '@/components/layout/Container';
 import { Section } from '@/components/layout/Section';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { SectionLoader } from '@/components/ui/SectionLoader';
 import { Camera, RefreshCw, Hand, ZoomIn, User, Car } from 'lucide-react';
 
@@ -153,7 +154,9 @@ const RightCard = memo(function RightCard({ tab, data }: RightCardProps) {
       <div className={styles.topViewSection}>
         <h4 className={styles.topViewHeader}>Top View (2D)</h4>
         <div className={styles.topViewCard} aria-label="2D top-view coverage map placeholder">
-          <div className={styles.topViewImage} />
+          <div className={styles.topViewImage}>
+            <Image src="/images/top-view-camera.png" alt="Camera Top View" width={130} height={96} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
           <div className={styles.topViewLegend}>
             {LEGEND.map(l => (
               <div key={l.label} className={styles.topViewLegendItem}>

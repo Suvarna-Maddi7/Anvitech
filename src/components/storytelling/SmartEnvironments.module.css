@@ -445,7 +445,7 @@
 .topViewImage {
   width: 130px;
   height: 96px;
-  background: linear-gradient(135deg, #EDE9FE 0%, #D1FAE5 100%);
+  background: var(--color-bg-base);
   position: relative;
   flex-shrink: 0;
 }

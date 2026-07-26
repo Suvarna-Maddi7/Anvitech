@@ -9,12 +9,7 @@
   position: relative;
 }
 
-@media (min-width: 1024px) {
-  .container {
-    flex-direction: row;
-    align-items: flex-start;
-  }
-}
+/* Mobile and desktop both use column layout now */
 
 /* Sticky 3D Model Area */
 .stickyArea {
@@ -28,17 +23,13 @@
 }
 
 @media (min-width: 1024px) {
-  .container {
-    flex-direction: row;
-    align-items: flex-start;
-  }
-
   .stickyArea {
-    flex: 1;
-    top: 80px; /* Header height on desktop */
-    height: calc(100vh - 80px);
+    position: relative;
+    top: 0;
+    height: 60vh;
     border-bottom: none;
     background-color: transparent;
+    margin-bottom: var(--spacing-16);
   }
 }
 
@@ -59,15 +50,20 @@
 
 @media (min-width: 1024px) {
   .contentArea {
-    flex: 1;
-    padding: 20vh 0 30vh 0; /* Add padding to allow scrolling past the sticky element */
-    max-width: 500px;
-    margin-left: auto;
+    padding: var(--spacing-8) 0 var(--spacing-16) 0;
+    width: 100%;
   }
 }
 
 .introBlock {
-  margin-bottom: 20vh;
+  margin-bottom: var(--spacing-8);
+}
+
+@media (min-width: 1024px) {
+  .introBlock {
+    margin-bottom: var(--spacing-12);
+    text-align: center;
+  }
 }
 
 .label {
@@ -87,20 +83,35 @@
 .featuresList {
   display: flex;
   flex-direction: column;
-  gap: 15vh; /* Tighter gap on mobile since sticky viewport is smaller */
+  gap: var(--spacing-6);
+}
+
+@media (min-width: 768px) {
+  .featuresList {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-8);
+  }
 }
 
 @media (min-width: 1024px) {
   .featuresList {
-    gap: 30vh; /* Large gap for dramatic scroll storytelling on desktop */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-8);
   }
 }
 
 .featureItem {
-  /* Give enough height so they enter the viewport one by one */
-  min-height: 20vh;
   display: flex;
   align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .featureItem {
+    min-height: auto;
+    height: 100%;
+  }
 }
 
 .featureCard {
@@ -148,23 +159,9 @@
   z-index: 1;
 }
 
-.activeCard {
+.featureCard:hover {
+  transform: translateY(-5px);
   background: var(--color-bg-base);
   border-color: var(--color-primary-navy);
   box-shadow: 0 8px 30px rgba(10, 17, 40, 0.12);
-}
-.activeCard::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: var(--color-primary-navy);
-}
-
-@media (min-width: 1024px) {
-  .activeCard {
-    transform: translateX(-10px);
-  }
 }
