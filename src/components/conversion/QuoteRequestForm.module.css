@@ -1,0 +1,120 @@
+.formContainer {
+  background: var(--color-bg-base);
+  border: 1px solid var(--color-bg-elevated);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.progressContainer {
+  width: 100%;
+  height: 4px;
+  background: var(--color-bg-elevated);
+}
+
+.progressBar {
+  height: 100%;
+  background: var(--color-secondary-blue);
+  transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.form {
+  flex: 1;
+  padding: var(--spacing-8);
+  position: relative;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.stepTitle {
+  margin-bottom: var(--spacing-2);
+  color: var(--color-primary-navy);
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.fieldRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-6);
+}
+
+@media (min-width: 640px) {
+  .fieldRow {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.label {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.select, .textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--color-bg-elevated);
+  border-radius: var(--radius-md);
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1rem;
+  color: var(--color-text-primary);
+  background: var(--color-bg-surface);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+}
+
+.select:focus, .textarea:focus {
+  border-color: var(--color-secondary-blue);
+  box-shadow: 0 0 0 3px rgba(35, 87, 137, 0.1);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.actions {
+  margin-top: var(--spacing-4);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.actionsGroup {
+  margin-top: var(--spacing-4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.successState {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--spacing-12);
+  background: var(--color-bg-surface);
+}
+
+.successIcon {
+  margin: 0 auto var(--spacing-6);
+}
+
+.successTitle {
+  margin-bottom: var(--spacing-2);
+  color: var(--color-primary-navy);
+}

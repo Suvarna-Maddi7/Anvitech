@@ -1,0 +1,44 @@
+/* Container Styles */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--spacing-4);
+  padding-right: var(--spacing-4);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: var(--spacing-6);
+    padding-right: var(--spacing-6);
+  }
+}
+
+.container-default { max-width: 1280px; }
+.container-narrow { max-width: 800px; }
+.container-wide { max-width: 1536px; }
+.container-full { max-width: 100%; }
+
+/* Section Styles */
+.section {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.bg-base { background-color: var(--color-bg-base); }
+.bg-surface { background-color: var(--color-bg-surface); }
+.bg-elevated { background-color: var(--color-bg-elevated); }
+
+.padding-none { padding: 0; }
+.padding-small { padding: var(--spacing-8) 0; }
+.padding-medium { padding: var(--spacing-16) 0; }
+.padding-large { padding: var(--spacing-24) 0; }
+.padding-huge { padding: var(--spacing-32) 0; }
+
+@media (min-width: 1024px) {
+  .padding-small { padding: var(--spacing-12) 0; }
+  .padding-medium { padding: var(--spacing-24) 0; }
+  .padding-large { padding: var(--spacing-32) 0; }
+  .padding-huge { padding: 160px 0; }
+}

@@ -1,0 +1,43 @@
+:root {
+  /* Brand Colors */
+  --color-primary-navy: #0A1128;
+  --color-secondary-blue: #235789;
+  --color-accent-gold: #D4AF37;
+  
+  /* Backgrounds */
+  --color-bg-base: #FFFFFF;
+  --color-bg-surface: #F8F9FA;
+  --color-bg-elevated: #EEF1F6;
+  
+  /* Text */
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #4A5568;
+  --color-text-muted: #A0AEC0;
+  
+  /* Interactive States */
+  --color-navy-hover: #142045;
+  --color-gold-hover: #F3C93F;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-pill: 9999px;
+
+  /* Elevations / Shadows */
+  --shadow-sm: 0 2px 4px rgba(10, 17, 40, 0.05);
+  --shadow-md: 0 4px 12px rgba(10, 17, 40, 0.08);
+  --shadow-lg: 0 12px 24px rgba(10, 17, 40, 0.12);
+
+  /* Spacing Scale (based on 4px) */
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-24: 96px;
+  --spacing-32: 128px;
+}

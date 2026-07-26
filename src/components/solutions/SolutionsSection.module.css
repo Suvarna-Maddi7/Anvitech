@@ -1,0 +1,45 @@
+.section {
+  position: relative;
+  z-index: 20;
+}
+
+.header {
+  margin-bottom: var(--spacing-16);
+  text-align: center;
+}
+
+.label {
+  color: var(--color-secondary-blue);
+  margin-bottom: var(--spacing-4);
+  display: block;
+}
+
+.title {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-6);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-8);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    /* Create a staggered, slightly overlapping look on large screens */
+    gap: var(--spacing-6);
+  }
+  
+  .cardWrapper:nth-child(3n + 2) {
+    transform: translateY(40px);
+  }
+}

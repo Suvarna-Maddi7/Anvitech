@@ -1,0 +1,170 @@
+.showcaseSection {
+  position: relative;
+  overflow: visible !important;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+/* Sticky 3D Model Area */
+.stickyArea {
+  position: sticky;
+  top: 72px; /* Header height on mobile */
+  width: 100%;
+  height: 40vh;
+  z-index: 30;
+  background-color: var(--color-bg-base);
+  border-bottom: 1px solid var(--color-bg-elevated);
+}
+
+@media (min-width: 1024px) {
+  .container {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .stickyArea {
+    flex: 1;
+    top: 80px; /* Header height on desktop */
+    height: calc(100vh - 80px);
+    border-bottom: none;
+    background-color: transparent;
+  }
+}
+
+.modelWrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+
+/* Scrolling Content Area */
+.contentArea {
+  width: 100%;
+  position: relative;
+  z-index: 20;
+  padding: var(--spacing-8) 0;
+}
+
+@media (min-width: 1024px) {
+  .contentArea {
+    flex: 1;
+    padding: 20vh 0 30vh 0; /* Add padding to allow scrolling past the sticky element */
+    max-width: 500px;
+    margin-left: auto;
+  }
+}
+
+.introBlock {
+  margin-bottom: 20vh;
+}
+
+.label {
+  color: var(--color-secondary-blue);
+  margin-bottom: var(--spacing-4);
+  display: block;
+}
+
+.title {
+  margin-bottom: var(--spacing-6);
+}
+
+.description {
+  font-size: 1.125rem !important;
+}
+
+.featuresList {
+  display: flex;
+  flex-direction: column;
+  gap: 15vh; /* Tighter gap on mobile since sticky viewport is smaller */
+}
+
+@media (min-width: 1024px) {
+  .featuresList {
+    gap: 30vh; /* Large gap for dramatic scroll storytelling on desktop */
+  }
+}
+
+.featureItem {
+  /* Give enough height so they enter the viewport one by one */
+  min-height: 20vh;
+  display: flex;
+  align-items: center;
+}
+
+.featureCard {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: var(--spacing-8);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.featureImage {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.08;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+.featureCard:hover .featureImage {
+  opacity: 0.15;
+}
+
+.featureCard:hover {
+  transform: translateX(10px);
+  background: var(--color-bg-base);
+  border-color: rgba(10, 17, 40, 0.1);
+}
+
+.featureTitle {
+  margin-bottom: var(--spacing-2);
+  position: relative;
+  z-index: 1;
+}
+
+.featureDesc {
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.activeCard {
+  background: var(--color-bg-base);
+  border-color: var(--color-primary-navy);
+  box-shadow: 0 8px 30px rgba(10, 17, 40, 0.12);
+}
+.activeCard::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--color-primary-navy);
+}
+
+@media (min-width: 1024px) {
+  .activeCard {
+    transform: translateX(-10px);
+  }
+}

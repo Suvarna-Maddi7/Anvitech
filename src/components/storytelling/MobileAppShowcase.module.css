@@ -1,0 +1,60 @@
+.section {
+  position: relative;
+  overflow: hidden;
+  padding: 250px 0 80px 0;
+  background: var(--color-bg-base);
+}
+.layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+@media (min-width: 1024px) {
+  .layout { flex-direction: row; justify-content: space-between; }
+}
+.textContent { flex: 1; max-width: 500px; }
+.label { color: var(--color-secondary-blue); margin-bottom: 1rem; display: block; }
+.title { margin-bottom: 1rem; line-height: 1.15; }
+.description { color: var(--color-text-secondary); margin-bottom: 2rem; font-size: 1.1rem !important; }
+.featureList { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; }
+.featureList li { display: flex; align-items: center; gap: 1rem; font-weight: 500; }
+.featureIcon { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(35, 87, 137, 0.1); color: var(--color-secondary-blue); }
+
+/* Phone Mockup */
+.visualContent { position: relative; flex: 1; display: flex; justify-content: center; }
+.glow { position: absolute; width: 300px; height: 500px; background: var(--color-secondary-blue); filter: blur(100px); opacity: 0.15; border-radius: 50%; z-index: 0; }
+.phoneFrame { position: relative; width: 320px; height: 650px; background: #0f172a; border-radius: 40px; border: 8px solid #334155; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5), inset 0 0 0 2px #1e293b; overflow: hidden; z-index: 1; }
+.notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 25px; background: #334155; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; z-index: 10; }
+.statusBar { display: flex; justify-content: space-between; padding: 10px 20px; color: white; font-size: 0.75rem; font-weight: 600; z-index: 5; position: relative; }
+.statusIcons { display: flex; gap: 5px; }
+
+/* Phone Screen Content */
+.phoneScreen { display: flex; flex-direction: column; height: 100%; color: white; padding-top: 10px; }
+.appHeader { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; }
+.appHeaderLeft { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+.shieldDot { width: 8px; height: 8px; background: #3b82f6; border-radius: 50%; }
+
+.videoFeed { position: relative; width: 100%; height: 220px; background: #000; border-top: 1px solid #1e293b; border-bottom: 1px solid #1e293b; overflow: hidden; }
+.feedOverlay { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.6) 0%, transparent 100%); }
+.liveBadge { position: absolute; top: 10px; right: 10px; background: rgba(239, 68, 68, 0.9); padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; letter-spacing: 1px; z-index: 2; }
+.feedLabel { position: absolute; bottom: 10px; left: 15px; font-size: 0.8rem; font-weight: 600; z-index: 2; }
+.scanLine { position: absolute; width: 100%; height: 2px; background: rgba(59, 130, 246, 0.5); box-shadow: 0 0 10px #3b82f6; top: 0; z-index: 3; animation: scan 3s linear infinite; }
+@keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+
+.gridLabel { padding: 20px 20px 10px; font-weight: 600; font-size: 0.9rem; color: #94a3b8; }
+.appGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 20px; }
+.appCard { background: #1e293b; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+.cardThumb { height: 60px; background: #334155; }
+.cardInfo { padding: 8px; display: flex; flex-direction: column; gap: 4px; }
+.cardName { font-size: 0.75rem; font-weight: 600; }
+.cardStatus { font-size: 0.65rem; font-weight: 700; }
+
+.homeIndicator { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); width: 100px; height: 4px; background: #fff; border-radius: 2px; z-index: 10; }
+
+/* Floating Notification */
+.notification { position: absolute; right: -40px; top: 150px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-radius: 12px; padding: 12px 16px; display: flex; align-items: center; gap: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); z-index: 20; color: #0f172a; border: 1px solid rgba(255,255,255,0.2); }
+.notifIcon { background: #ef4444; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.notifTitle { font-weight: 600; font-size: 0.85rem; }
+.notifSub { font-size: 0.75rem; color: #64748b; }
+@media (max-width: 1024px) { .notification { right: 20px; } }

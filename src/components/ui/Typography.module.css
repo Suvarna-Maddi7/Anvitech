@@ -1,0 +1,50 @@
+.base {
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+/* Headings use Outfit */
+.display, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--font-outfit), sans-serif;
+  color: var(--color-primary-navy);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.display {
+  font-size: clamp(3rem, 5vw + 1rem, 5rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.h1 { font-size: clamp(2.5rem, 4vw + 1rem, 4rem); }
+.h2 { font-size: clamp(2rem, 3vw + 1rem, 3rem); }
+.h3 { font-size: clamp(1.5rem, 2vw + 1rem, 2rem); }
+.h4 { font-size: clamp(1.25rem, 1.5vw + 1rem, 1.5rem); }
+.h5 { font-size: 1.25rem; }
+.h6 { font-size: 1.125rem; }
+
+/* Body uses Inter */
+.body, .label, .caption {
+  font-family: var(--font-inter), sans-serif;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.body {
+  font-size: 1rem;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.caption {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}

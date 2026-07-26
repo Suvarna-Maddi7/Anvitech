@@ -1,0 +1,98 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-4);
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-6);
+  background: var(--color-bg-base);
+  border: 1px solid var(--color-bg-elevated);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(35, 87, 137, 0.2);
+}
+
+/* Image background for contact cards */
+.image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  opacity: 0.1;
+  transition: opacity 0.4s ease;
+}
+
+.card:hover .image {
+  opacity: 0.2;
+}
+
+.iconWrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary-navy);
+  margin-bottom: var(--spacing-4);
+  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.card:hover .iconWrapper {
+  transform: scale(1.1);
+  background: var(--color-primary-navy);
+  color: var(--color-bg-base);
+}
+
+.content {
+  margin-bottom: var(--spacing-6);
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  margin-bottom: var(--spacing-1);
+  color: var(--color-text-primary);
+}
+
+.detail {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem !important;
+}
+
+.actionLabel {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--color-secondary-blue);
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.card:hover .actionLabel {
+  opacity: 1;
+}

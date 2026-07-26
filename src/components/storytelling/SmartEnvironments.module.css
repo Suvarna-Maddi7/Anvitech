@@ -1,0 +1,544 @@
+/* ───────────────────────────────────────────────────────────────────────────
+   SmartEnvironments — polished CSS module
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.header {
+  margin-bottom: var(--spacing-6);
+}
+
+.title {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-2) 0;
+}
+
+.accent {
+  color: #4F46E5;
+  display: inline-block;
+}
+
+.subtitle {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 1.0625rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* ── Environment pills ────────────────────────────────────────────────────── */
+.tabsContainer {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 24px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.tabsContainer::-webkit-scrollbar { display: none; }
+
+.tab {
+  padding: 9px 22px;
+  background: var(--color-bg-base);
+  border: 1.5px solid #E4E7EC;
+  border-radius: 9999px;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+  outline: none;
+  /* keyboard focus */
+}
+.tab:focus-visible {
+  outline: 2px solid #4F46E5;
+  outline-offset: 3px;
+}
+.tab:hover:not(.activeTab) {
+  border-color: #C7D2FE;
+  color: #4F46E5;
+}
+
+.activeTab {
+  background: var(--color-primary-navy);
+  color: #FFFFFF;
+  border-color: var(--color-primary-navy);
+  box-shadow: 0 4px 14px rgba(10,17,40,0.18);
+}
+
+/* ── 3-column grid ────────────────────────────────────────────────────────── */
+.gridContainer {
+  display: grid;
+  grid-template-columns: 300px 1fr 300px;
+  gap: 20px;
+  align-items: stretch;
+}
+
+/* ── Base card ────────────────────────────────────────────────────────────── */
+.card {
+  background: var(--color-bg-base);
+  border-radius: 22px;
+  padding: 24px;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.03),
+    0 6px 18px rgba(0,0,0,0.04);
+  border: 1px solid #F0F0EE;
+  display: flex;
+  flex-direction: column;
+  /* framer-motion will animate y / box-shadow */
+  transition: box-shadow 0.22s ease;
+  will-change: transform;
+  outline: none;
+}
+.card:focus-visible {
+  outline: 2px solid #4F46E5;
+  outline-offset: 3px;
+}
+
+/* ── Left card — Coverage Summary ─────────────────────────────────────────── */
+.summaryHeader { margin-bottom: 20px; }
+
+.summaryTitle {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.chartContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.circularChart {
+  width: 136px;
+  height: 136px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.5s ease;
+}
+
+.circularChartInner {
+  width: 110px;
+  height: 110px;
+  background: var(--color-bg-base);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.chartPercentage {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1;
+  display: block;
+}
+
+.chartLabel {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  margin-top: 4px;
+}
+
+.legendList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.legendItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+}
+
+.legendLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legendValue {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  font-size: 0.8125rem;
+  min-width: 32px;
+  text-align: right;
+}
+
+/* Recommendation box */
+.recommendationBox {
+  margin-top: auto;
+  background: #F8F9FF;
+  border: 1px solid #EEF0FF;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.recTitle {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  margin: 0 0 6px 0;
+}
+
+.recCountRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.recCount {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+.iconBtn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #E0E7FF;
+  color: #4F46E5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.optimizeBtn {
+  width: 100%;
+  padding: 11px;
+  border-radius: 12px;
+  border: 1.5px solid #C7D2FE;
+  background: transparent;
+  color: #4F46E5;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  outline: none;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.optimizeBtn:focus-visible {
+  outline: 2px solid #4F46E5;
+  outline-offset: 3px;
+}
+
+/* ── Center card — 3D Viewer ─────────────────────────────────────────────── */
+.viewerCard {
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  min-height: 520px;
+  cursor: grab;
+}
+.viewerCard:active { cursor: grabbing; }
+
+.viewerContainer {
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  min-height: 520px;
+}
+
+/* Floating toolbar */
+.toolbar {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 6px 8px;
+  border-radius: 9999px;
+  box-shadow:
+    0 4px 16px rgba(0,0,0,0.08),
+    0 1px 4px rgba(0,0,0,0.05);
+  border: 1px solid rgba(255,255,255,0.7);
+  white-space: nowrap;
+}
+
+.toolbarBtn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: transparent;
+  border: none;
+  border-radius: 9999px;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color 0.15s ease;
+  outline: none;
+  z-index: 1;
+}
+.toolbarBtn:focus-visible {
+  outline: 2px solid #4F46E5;
+  outline-offset: 2px;
+}
+
+.toolbarBtnActive {
+  color: #4F46E5;
+  font-weight: 600;
+}
+
+.toolbarActiveIndicator {
+  position: absolute;
+  inset: 0;
+  background: #EEF2FF;
+  border-radius: 9999px;
+  z-index: -1;
+}
+
+/* ── Right card — Camera Details ─────────────────────────────────────────── */
+.cameraTitleRow {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.cameraImageWrapper {
+  width: 58px;
+  height: 58px;
+  background: #EEF2FF;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cameraInfo h4 {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0 0 3px 0;
+}
+
+.cameraInfo p {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  margin: 0 0 8px 0;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  background: #DCFCE7;
+  color: #166534;
+  font-size: 0.72rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  letter-spacing: 0.02em;
+}
+.statusBadge::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #22c55e;
+  display: inline-block;
+}
+
+.specsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 20px;
+}
+
+.specItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.8125rem;
+  padding: 11px 0;
+  border-bottom: 1px solid #F4F4F2;
+}
+.specItem:last-child { border-bottom: none; }
+
+.specLabel { color: var(--color-text-secondary); }
+
+.specValue {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.iconRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text-secondary);
+}
+
+.animalIcon { font-size: 0.875rem; line-height: 1; }
+
+/* Top view mini-map */
+.topViewSection { margin-top: auto; }
+
+.topViewHeader {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0 0 10px 0;
+}
+
+.topViewCard {
+  background: var(--color-bg-surface);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  border: 1px solid #EDEDEB;
+}
+
+.topViewImage {
+  width: 130px;
+  height: 96px;
+  background: linear-gradient(135deg, #EDE9FE 0%, #D1FAE5 100%);
+  position: relative;
+  flex-shrink: 0;
+}
+.topViewImage::after {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(79,70,229,0.25) 0%, transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(34,197,94,0.2)  0%, transparent 50%);
+  border-radius: 6px;
+}
+
+.topViewLegend {
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
+
+.topViewLegendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.7rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+/* Large desktop — breathing room */
+@media (min-width: 1400px) {
+  .gridContainer { grid-template-columns: 320px 1fr 320px; gap: 24px; }
+  .viewerCard    { min-height: 580px; }
+  .viewerContainer { min-height: 580px; }
+}
+
+/* Tablet landscape */
+@media (max-width: 1200px) {
+  .gridContainer { grid-template-columns: 260px 1fr 260px; gap: 16px; }
+}
+
+/* Tablet portrait — collapse to 2 columns: [summary | viewer] + [details below] */
+@media (max-width: 1024px) {
+  .gridContainer {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 16px;
+  }
+
+  /* Viewer spans full width on top */
+  .viewerCard {
+    grid-column: 1 / -1;
+    order: -1;
+    min-height: 420px;
+  }
+  .viewerContainer { min-height: 420px; }
+
+  /* Summary and details side by side below */
+}
+
+/* Mobile — single column */
+@media (max-width: 768px) {
+  .gridContainer {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .viewerCard {
+    grid-column: 1;
+    order: -1;
+    min-height: 360px;
+  }
+  .viewerContainer { min-height: 360px; }
+
+  /* Toolbar — icons only */
+  .toolbarBtn span { display: none; }
+  .toolbarBtn { padding: 10px 12px; }
+
+  .toolbar { gap: 2px; padding: 6px; }
+
+  /* Top view map stacked */
+  .topViewCard { flex-direction: column; }
+  .topViewImage { width: 100%; height: 110px; }
+  .topViewLegend { flex-direction: row; flex-wrap: wrap; gap: 8px; padding: 10px 12px; }
+}
+
+@media (max-width: 480px) {
+  .title { font-size: 1.5rem; }
+  .circularChart { width: 120px; height: 120px; }
+  .circularChartInner { width: 96px; height: 96px; }
+  .chartPercentage { font-size: 1.625rem; }
+}
