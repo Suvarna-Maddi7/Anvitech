@@ -7,57 +7,63 @@ import { Typography } from '@/components/ui/Typography';
 import { FadeIn } from '@/components/animations/FadeIn';
 import styles from './ProjectsShowcase.module.css';
 
+import heritageImg from '@/images/heritage.png';
+import corparateImg from '@/images/corparate.png';
+import logisticImg from '@/images/logistic.png';
+import retailImg from '@/images/retail.png';
+import institutionImg from '@/images/institution.png';
+
 const projects = [
   {
     id: 1,
-    title: 'Luxury Residence',
-    location: 'Beverly Hills',
+    title: 'Heritage Villa',
+    location: 'Kerala Backwaters',
     type: 'Residential',
     tech: 'AI Motion, 4K',
     size: 'large',
-    imageUrl: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80'
+    imageUrl: heritageImg.src
   },
   {
     id: 2,
-    title: 'Corporate HQ',
-    location: 'Downtown',
+    title: 'Corporate Headquarters',
+    location: 'Bengaluru, Electronic City',
     type: 'Office',
     tech: 'Access Control, 360°',
     size: 'small',
-    imageUrl: 'https://images.unsplash.com/photo-1554435493-93422e8220c8?auto=format&fit=crop&w=800&q=80'
+    imageUrl: corparateImg.src
   },
   {
     id: 3,
-    title: 'Logistics Center',
-    location: 'Industrial Park',
+    title: 'Logistics Facility',
+    location: 'Chennai Port',
     type: 'Warehouse',
     tech: 'Thermal, Solar',
     size: 'medium',
-    imageUrl: 'https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=800&q=80'
+    imageUrl: logisticImg.src
   },
   {
     id: 4,
-    title: 'Retail Flagship',
-    location: 'High Street',
+    title: 'Retail Store',
+    location: 'Bengaluru, Indiranagar',
     type: 'Commercial',
     tech: 'People Counting',
     size: 'medium',
-    imageUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80'
+    imageUrl: retailImg.src
   },
   {
     id: 5,
     title: 'University Campus',
-    location: 'Westwood',
+    location: 'IIT Madras, Chennai',
     type: 'Institution',
     tech: 'LPR, PTZ',
     size: 'small',
-    imageUrl: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80'
+    imageUrl: institutionImg.src
   },
 ];
 
 export function ProjectsShowcase() {
   return (
-    <Section background="surface" padding="large">
+    <Section background="surface" padding="large" className={styles.section}>
       <Container size="wide">
         
         <div className={styles.header}>

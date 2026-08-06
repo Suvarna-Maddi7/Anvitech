@@ -53,31 +53,40 @@ export function ProductShowcase() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (!containerRef.current) return;
-      
-      const cards = containerRef.current.querySelectorAll('.feature-card-wrapper');
-      let minDistance = Infinity;
-      let activeIndex = 0;
-      
-      cards.forEach((card, index) => {
-        const rect = card.getBoundingClientRect();
-        // Distance from the middle of the viewport
-        const distance = Math.abs(rect.top - window.innerHeight / 2);
-        
-        if (distance < minDistance) {
-          minDistance = distance;
-          activeIndex = index;
-        }
-      });
-      
-      setActiveFeature(activeIndex);
+    if (!containerRef.current) return;
+    const cards = containerRef.current.querySelectorAll('.feature-card-wrapper');
+    if (cards.length === 0) return;
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-30% 0px -30% 0px',
+      threshold: 0.2,
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial check
-    
-    return () => window.removeEventListener('scroll', handleScroll);
+    const observer = new IntersectionObserver((entries) => {
+      let bestEntry: IntersectionObserverEntry | null = null;
+      let maxRatio = 0;
+
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
+          maxRatio = entry.intersectionRatio;
+          bestEntry = entry;
+        }
+      });
+
+      if (bestEntry) {
+        const index = Array.from(cards).indexOf((bestEntry as IntersectionObserverEntry).target);
+        if (index !== -1) {
+          setActiveFeature(index);
+        }
+      }
+    }, observerOptions);
+
+    cards.forEach((card) => observer.observe(card));
+
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   return (
@@ -86,6 +95,13 @@ export function ProductShowcase() {
         
         {/* Sticky 3D Model Area */}
         <div className={styles.stickyArea}>
+          {/* Subtle Curvy Background SVG */}
+          <div className={styles.showcaseBg}>
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none" className={styles.showcaseBgSvg}>
+              <path d="M 0,0 L 35,0 C 45,30 30,70 40,100 L 0,100 Z" fill="#f8fafc" opacity="0.8" />
+              <path d="M 35,0 C 45,30 30,70 40,100" fill="none" stroke="#e2e8f0" strokeWidth="0.5" />
+            </svg>
+          </div>
           <div className={styles.modelWrapper}>
             <SecurityCamera key="camera-hmr-fix" activeFeatureIndex={activeFeature} />
           </div>

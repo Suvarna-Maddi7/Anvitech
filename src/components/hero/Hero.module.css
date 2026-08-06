@@ -1,165 +1,447 @@
 .heroSection {
   position: relative;
-  min-height: 100vh;
+  height: 100vh;
+  min-height: 750px;
+  width: 100%;
+  background-color: #ffffff;
+  overflow: hidden;
   display: flex;
   align-items: center;
-  padding-top: 120px; /* More top padding for mobile */
-  padding-bottom: 80px;
-  overflow: hidden;
-}
-
-@media (min-width: 1024px) {
-  .heroSection {
-    padding-top: 80px;
-    padding-bottom: 0;
-  }
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: var(--spacing-8);
+  height: 100%;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
   position: relative;
   z-index: 10;
-  width: 100%;
-}
-
-/* On mobile, unwrap contentArea to reorder its children */
-@media (max-width: 1023px) {
-  .contentArea {
-    display: contents;
-  }
-  
-  .badgeWrap { order: 1; display: flex; justify-content: center; }
-  .titleWrap { order: 2; margin-bottom: 0; text-align: center; }
-  .visualArea { order: 3; margin: var(--spacing-6) 0; }
-  .descWrap { order: 4; text-align: center; }
-  .actions { order: 5; align-items: center; width: 100%; }
-  .trustArea { order: 6; display: flex; justify-content: center; width: 100%; }
 }
 
 @media (min-width: 1024px) {
   .container {
     flex-direction: row;
-    gap: var(--spacing-8);
   }
-
 }
 
-/* Left Content Area */
-.contentArea {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  max-width: 600px;
+/* Left Placeholder (Pushes right panel to 58%) */
+.leftPlaceholder {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .leftPlaceholder {
+    display: block;
+    width: 42%;
+    flex-shrink: 0;
+  }
+}
+
+/* Absolute content layer positioned on top of the SVG */
+.contentLayerAbsolute {
+  position: absolute;
+  top: 140px;
+  left: 100px;
+  max-width: 520px;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.contentLayerAbsolute * {
+  pointer-events: auto;
+}
+
+@media (max-width: 1023px) {
+  .contentLayerAbsolute {
+    position: relative;
+    top: 0;
+    left: 0;
+    max-width: 100%;
+    padding: 120px 24px 40px 24px;
+  }
+}
+
+/* Left SVG Container */
+.leftPanel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50vh;
+  z-index: 5;
+  pointer-events: none;
+}
+
+@media (min-width: 1024px) {
+  .leftPanel {
+    width: 100%;
+    top: 80px;
+    height: calc(100% - 80px);
+  }
+}
+
+.contentWrap {
+  width: 100%;
+  max-width: 520px;
+  position: relative;
+}
+
+/* Badge Introducing */
+.badgeWrap {
+  margin-bottom: 24px;
 }
 
 .badge {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-2);
-  padding: var(--spacing-1) var(--spacing-3);
-  background-color: var(--color-bg-surface);
-  border: 1px solid var(--color-bg-elevated);
-  border-radius: var(--radius-pill);
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
   font-family: var(--font-inter), sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 500;
-  color: var(--color-primary-navy);
-  margin-bottom: var(--spacing-6);
-  width: max-content;
+  color: #ffffff;
 }
 
 .badgeDot {
   width: 6px;
   height: 6px;
-  background-color: var(--color-secondary-blue);
+  background-color: #60A5FA;
   border-radius: 50%;
-  animation: pulse 2s infinite;
+  box-shadow: 0 0 8px #60A5FA;
 }
 
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(35, 87, 137, 0.4); }
-  70% { box-shadow: 0 0 0 6px rgba(35, 87, 137, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(35, 87, 137, 0); }
-}
-
+/* Headline */
 .headline {
-  margin-bottom: var(--spacing-6);
+  color: #ffffff !important;
+  font-family: var(--font-syne), sans-serif;
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem) !important;
+  font-weight: 500;
+  line-height: 1.15;
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
 }
 
 .textAccent {
-  color: var(--color-secondary-blue);
+  background: linear-gradient(90deg, #60A5FA 0%, #3B82F6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .description {
-  font-size: 1.125rem !important; /* Slightly larger for Hero */
-  margin-bottom: var(--spacing-8);
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-size: 1.05rem !important;
+  line-height: 1.6;
+  margin-bottom: 36px;
+  max-width: 440px;
 }
 
+/* Actions */
 .actions {
   display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
-  margin-bottom: var(--spacing-12);
+  gap: 16px;
+  align-items: center;
 }
 
-@media (min-width: 640px) {
-  .actions {
-    flex-direction: row;
-  }
+/* Custom premium button elements */
+.primaryButton {
+  position: relative;
+  background: rgba(37, 99, 235, 0.85) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(96, 165, 250, 0.35) !important;
+  color: #ffffff !important;
+  padding: 14px 28px !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.25) !important;
 }
 
-.trustArea {
-  margin-top: auto;
+.primaryButton:hover {
+  background: #2563EB !important;
+  box-shadow: 0 8px 30px rgba(37, 99, 235, 0.45) !important;
+  transform: translateY(-2px);
 }
 
-/* Right 3D Visual Area */
-.visualArea {
-  flex: 1;
+.primaryButtonActiveIcon {
+  display: inline-block;
+  margin-left: 8px;
+  transition: transform 0.3s ease;
+}
+
+.primaryButton:hover .primaryButtonActiveIcon {
+  transform: translateX(4px);
+}
+
+.secondaryButton {
+  position: relative;
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-weight: 600 !important;
+  padding: 14px 24px !important;
+  transition: color 0.25s ease !important;
+}
+
+.secondaryButton::after {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: 24px;
+  right: 24px;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.4);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.secondaryButton:hover {
+  color: #ffffff !important;
+}
+
+.secondaryButton:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Right Section - 58% */
+.rightSection {
+  position: relative;
   width: 100%;
   height: 50vh;
-  min-height: 400px;
-  position: relative;
+  background-color: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10;
 }
 
 @media (min-width: 1024px) {
-  .visualArea {
-    height: 70vh;
+  .rightSection {
+    width: 58%;
+    height: 100%;
   }
 }
 
-.canvasContainer {
-  width: 100%;
-  height: 100%;
+/* Background elements overlay */
+.bgGraphics {
   position: absolute;
   inset: 0;
-}
-
-.floatingLabel {
-  position: absolute;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  padding: var(--spacing-2) var(--spacing-4);
-  border-radius: var(--radius-pill);
-  font-family: var(--font-inter), sans-serif;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--color-primary-navy);
-  box-shadow: var(--shadow-sm);
   pointer-events: none;
+  z-index: 1;
 }
 
-/* Scroll Indicator */
-.scrollIndicatorWrapper {
+.perspectiveGrid {
   position: absolute;
-  bottom: var(--spacing-6);
+  inset: 0;
+  opacity: 0.06;
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center;
+  transform: perspective(600px) rotateX(60deg);
+  transform-origin: center bottom;
+}
+
+.circularGraphic {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(37, 99, 235, 0.04);
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
-  z-index: 20;
+  transform: translate(-50%, -50%);
+}
+
+.circularGraphic1 { width: 350px; height: 350px; }
+.circularGraphic2 { width: 550px; height: 550px; border-style: dashed; }
+.circularGraphic3 { width: 750px; height: 750px; }
+
+/* SVG organic edge glow and animated traveling dot */
+.edgeOverlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 25;
+}
+
+.edgeSvg {
+  width: 100%;
+  height: 100%;
+}
+
+/* 3D Canvas container */
+.canvasWrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 5;
+}
+
+/* Feature Pills overlay */
+.pillsOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 15;
+}
+
+.featurePill {
+  position: absolute;
+  pointer-events: auto;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 9999px;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #021B4F;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.featurePill:hover {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 
+    0 15px 40px rgba(59, 130, 246, 0.12),
+    0 1px 2px rgba(59, 130, 246, 0.05);
+  border-color: rgba(96, 165, 250, 0.6);
+  transform: translateY(-3px) scale(1.02);
+}
+
+.pillIcon {
+  color: #2563EB;
+}
+
+@media (max-width: 1023px) {
+  .heroSection {
+    height: auto;
+    min-height: auto;
+    flex-direction: column;
+    padding-top: 0;
+    padding-bottom: 120px; /* Space for the floating bottom actions */
+    background: #ffffff;
+  }
+  
+  .leftPanel {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 440px; /* Curve height matches text height area */
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  .leftPanel svg {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .contentLayerAbsolute {
+    position: relative;
+    top: 0;
+    left: 0;
+    max-width: 100%;
+    padding: 96px 20px 20px 20px; /* 72px header + 24px spacing = 96px top; 20px horizontal margins */
+    pointer-events: auto;
+    z-index: 10;
+  }
+
+  .contentWrap {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .badgeWrap {
+    margin-bottom: 20px !important; /* Badge → Heading: 20px */
+  }
+
+  .badge {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    color: #ffffff !important;
+    font-size: 14px !important; /* 14px text badge */
+  }
+
+  .badgeDot {
+    background-color: #60A5FA;
+    box-shadow: 0 0 8px #60A5FA;
+  }
+
+  .headline {
+    color: #ffffff !important;
+    font-size: 2.5rem !important; /* Scaled header equivalent to mobile */
+    line-height: 1.15;
+    margin-top: 0px;
+    margin-bottom: 24px !important; /* Heading → Description: 24px */
+    font-weight: 700;
+  }
+
+  .textAccent {
+    background: linear-gradient(90deg, #3B82F6 0%, #60A5FA 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block;
+    margin-top: 4px;
+  }
+
+  .description {
+    color: #475569 !important; /* Dark gray for maximum readability */
+    font-size: 17px !important; /* 17px text description */
+    line-height: 1.6;
+    margin-top: 60px; /* Push description below the top panel curve */
+    margin-bottom: 28px !important; /* Description → Button: 28px */
+    max-width: 100%;
+  }
+
+  .primaryButton {
+    background: linear-gradient(135deg, #1E4ED8 0%, #3B82F6 100%) !important; /* Blue gradient */
+    border: none !important;
+    box-shadow: 0 10px 25px rgba(30, 78, 216, 0.25) !important;
+    padding: 14px 28px !important;
+    height: 56px !important; /* Height: 56px */
+    border-radius: 14px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .secondaryButton {
+    display: none !important;
+  }
+  
+  .rightSection {
+    height: 380px;
+    width: 100%;
+    margin-top: -120px; /* Overlay effect with the curve base */
+    z-index: 8;
+  }
+
+  .pillsOverlay {
+    display: none;
+  }
+
+  .perspectiveGrid {
+    opacity: 0.02;
+  }
 }

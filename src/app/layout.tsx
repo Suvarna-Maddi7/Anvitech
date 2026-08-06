@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
-import { Inter, Outfit } from 'next/font/google';
+import { Manrope, Syne } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
 import { MobileActionBar } from '@/components/layout/MobileActionBar';
 import { GlobalLoader } from '@/components/ui/GlobalLoader';
+import { SmoothScrollProvider } from '@/components/layout/SmoothScrollProvider';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
+const manrope = Manrope({ subsets: ['latin'], variable: '--font-manrope' });
+const syne = Syne({ subsets: ['latin'], variable: '--font-syne' });
 
 export const metadata: Metadata = {
   title: 'Anvitech Smart Solutions | Premium AI Security',
@@ -58,10 +59,12 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${inter.variable} ${outfit.variable}`}>
-        <GlobalLoader />
-        {children}
-        <MobileActionBar />
+      <body className={`${manrope.variable} ${syne.variable}`}>
+        <SmoothScrollProvider>
+          <GlobalLoader />
+          {children}
+          <MobileActionBar />
+        </SmoothScrollProvider>
         
         {/* Analytics Placeholder */}
         <Script id="google-analytics" strategy="afterInteractive">

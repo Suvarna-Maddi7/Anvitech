@@ -12,9 +12,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import {
   OrbitControls,
   ContactShadows,
-  Environment,
   AdaptiveDpr,
-  BakeShadows,
 } from '@react-three/drei';
 import * as THREE from 'three';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -40,7 +38,7 @@ const DEFAULT_TARGET = new THREE.Vector3(0, 1, 0);
 
 // ── Smooth camera reset ────────────────────────────────────────────────────────
 function CameraResetter({ trigger }: { trigger: number }) {
-  const { camera } = useThree();
+  const { camera, invalidate } = useThree();
   const lerping = useRef(false);
 
   useEffect(() => {
@@ -50,6 +48,7 @@ function CameraResetter({ trigger }: { trigger: number }) {
   useFrame(() => {
     if (!lerping.current) return;
     camera.position.lerp(DEFAULT_CAM, 0.06);
+    invalidate();
     if (camera.position.distanceTo(DEFAULT_CAM) < 0.005) {
       camera.position.copy(DEFAULT_CAM);
       lerping.current = false;
@@ -67,14 +66,6 @@ const SKY_COLORS: Record<string, string> = {
   Farm:      '#B8D8EC',   // open countryside sky
 };
 
-// Sets Three.js scene.background to a matching sky colour
-function SkyBackground({ activeTab }: { activeTab: string }) {
-  const { scene } = useThree();
-  useEffect(() => {
-    scene.background = new THREE.Color(SKY_COLORS[activeTab] ?? '#C8DDF0');
-  }, [activeTab, scene]);
-  return null;
-}
 
 // ── Scene contents (memo-safe because all deps are props) ─────────────────────
 function SceneContents({
@@ -89,7 +80,7 @@ function SceneContents({
   return (
     <>
       {/* ── Sky background ─────────────────────────────────────────────────── */}
-      <SkyBackground activeTab={activeTab} />
+      <color attach="background" args={[SKY_COLORS[activeTab] ?? '#C8DDF0']} />
       {/* ── Lighting ───────────────────────────────────────────────────────── */}
       {/* Soft, neutral key light from top-right */}
       <directionalLight
@@ -198,7 +189,7 @@ export function EnvironmentScene({ activeTab }: EnvironmentSceneProps) {
             style={{
               position: 'absolute',
               inset: 0,
-              background: '#C8DDF0',
+              background: SKY_COLORS[activeTab] ?? '#C8DDF0',
               zIndex: 10,
               pointerEvents: 'none',
             }}
@@ -208,7 +199,7 @@ export function EnvironmentScene({ activeTab }: EnvironmentSceneProps) {
 
       <Canvas
         shadows="soft"
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
         camera={{ position: [9, 9, 9], fov: 34, near: 0.5, far: 80 }}
         gl={{
           antialias: true,

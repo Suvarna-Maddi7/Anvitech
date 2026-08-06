@@ -1,22 +1,22 @@
 :root {
   /* Brand Colors */
-  --color-primary-navy: #0A1128;
-  --color-secondary-blue: #235789;
-  --color-accent-gold: #D4AF37;
+  --color-primary-navy: #15479E;
+  --color-secondary-blue: #2A91EB;
+  --color-accent-gold: #9ACCF9;
   
   /* Backgrounds */
-  --color-bg-base: #FFFFFF;
-  --color-bg-surface: #F8F9FA;
-  --color-bg-elevated: #EEF1F6;
+  --color-bg-base: #F0F6FC;
+  --color-bg-surface: #E6F0FA;
+  --color-bg-elevated: #FFFFFF;
   
   /* Text */
-  --color-text-primary: #1A1A1A;
-  --color-text-secondary: #4A5568;
-  --color-text-muted: #A0AEC0;
+  --color-text-primary: #0C1E40;
+  --color-text-secondary: #2C4A78;
+  --color-text-muted: #5A7AA3;
   
   /* Interactive States */
-  --color-navy-hover: #142045;
-  --color-gold-hover: #F3C93F;
+  --color-navy-hover: #0D357A;
+  --color-gold-hover: #B3DBFF;
 
   /* Border Radius */
   --radius-sm: 4px;

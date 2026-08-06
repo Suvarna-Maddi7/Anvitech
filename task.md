@@ -1,0 +1,8 @@
+- [x] Export/adapt `CameraModel` and pedestal logic in `InteractiveCamera.tsx` or new canvas component
+- [x] Create organic blob SVG path and traveling light animation on edge
+- [x] Implement mouse parallax response using Framer Motion
+- [x] Implement scroll-linked animations (scale, opacity, positions)
+- [x] Rebuild CTA buttons and introduction badge with premium styling
+- [x] Rebuild feature pills with staggered floating animations
+- [x] Style the hero section in `Hero.module.css` with radial gradients, noise, perspective grid, and responsive styling
+- [x] Verify clean build and lint checks

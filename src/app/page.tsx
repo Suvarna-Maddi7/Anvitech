@@ -5,6 +5,7 @@ import { SectionLoader } from '@/components/ui/SectionLoader';
 import { Header } from '@/components/layout/Header';
 import { Hero } from '@/components/hero/Hero';
 import { Footer } from '@/components/layout/Footer';
+import { FadeIn } from '@/components/animations/FadeIn';
 
 // Lazy Loaded Components
 const SolutionsSection = dynamic(() => import('@/components/solutions/SolutionsSection').then(m => m.SolutionsSection), { loading: () => <SectionLoader message="Loading solutions..." /> });
@@ -24,23 +25,23 @@ export default function Home() {
       <Header />
       <main>
         {/* Above the Fold (Eagerly Loaded) */}
-        <Hero />
+        <div id="hero"><FadeIn direction="none" duration={1}><Hero /></FadeIn></div>
         
         {/* Phase 4: Core Experience (Lazy Loaded) */}
-        <SolutionsSection />
-        <ProductShowcase />
-        <WhyAnvitech />
+        <div id="solutions"><FadeIn><SolutionsSection /></FadeIn></div>
+        <div id="product"><FadeIn direction="left"><ProductShowcase /></FadeIn></div>
+        <div id="why"><FadeIn direction="right"><WhyAnvitech /></FadeIn></div>
         
         {/* Phase 5: Immersive Storytelling (Lazy Loaded) */}
-        <SmartEnvironments />
-        <AIDemonstration />
-        <MobileAppShowcase />
+        <div id="environments"><FadeIn><SmartEnvironments /></FadeIn></div>
+        <div id="demonstration"><FadeIn direction="left"><AIDemonstration /></FadeIn></div>
+        <div id="mobileapp"><FadeIn direction="right"><MobileAppShowcase /></FadeIn></div>
         
         {/* Phase 6: Trust & Conversion Experience (Lazy Loaded) */}
-        <ProjectsShowcase />
-        <TrustStats />
-        <ProcessTimeline />
-        <ConversionSection />
+        <div id="projects"><FadeIn><ProjectsShowcase /></FadeIn></div>
+        <div id="stats"><FadeIn direction="up"><TrustStats /></FadeIn></div>
+        <div id="timeline"><FadeIn direction="left"><ProcessTimeline /></FadeIn></div>
+        <div id="conversion"><FadeIn direction="up"><ConversionSection /></FadeIn></div>
         
       </main>
       <Footer />

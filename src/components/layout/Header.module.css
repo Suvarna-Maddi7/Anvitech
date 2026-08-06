@@ -9,15 +9,34 @@
   align-items: center;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   background: transparent;
+  transform: translateZ(0);
+  will-change: transform, height, background-color, backdrop-filter;
 }
 
 .scrolled {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 4px 24px rgba(10, 17, 40, 0.04);
   height: 72px;
+}
+
+.headerBg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: #ffffff;
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   border-bottom: 1px solid rgba(10, 17, 40, 0.05);
+}
+
+.scrolled .headerBg {
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.headerBgSvg {
+  width: 100%;
+  height: 100%;
 }
 
 .container {
@@ -30,31 +49,54 @@
 .logoGroup {
   display: flex;
   align-items: center;
-  gap: var(--spacing-3);
+  gap: var(--spacing-2);
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .logoGroup:hover {
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 .logoIcon {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 44px;
+  height: 44px;
+  overflow: hidden;
+}
+
+.logoIcon img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain;
 }
 
 .logoText {
-  letter-spacing: 0.1em;
-  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-weight: 700;
   margin-bottom: 0;
+  color: #021B4F !important;
+  font-size: 0.72rem !important;
+}
+
+.rightNavGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+@media (min-width: 768px) {
+  .rightNavGroup {
+    gap: var(--spacing-6);
+  }
 }
 
 .nav {
   display: none;
   align-items: center;
-  gap: var(--spacing-8);
+  gap: var(--spacing-6);
 }
 
 @media (min-width: 768px) {
@@ -65,10 +107,16 @@
 
 .navLink {
   font-family: var(--font-inter), sans-serif;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--color-text-secondary);
+  font-size: 0.82rem;
+  font-weight: 600;
   position: relative;
+  transition: color 0.25s ease;
+}
+
+@media (min-width: 768px) {
+  .navLink {
+    color: rgba(255, 255, 255, 0.85) !important;
+  }
 }
 
 .navLink::after {
@@ -78,37 +126,51 @@
   bottom: -4px;
   width: 100%;
   height: 2px;
-  background-color: var(--color-secondary-blue);
+  background-color: #ffffff;
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.navLink:hover {
-  color: var(--color-primary-navy);
-}
+@media (min-width: 768px) {
+  .navLink:hover {
+    color: #ffffff !important;
+  }
 
-.navLink:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
+  .navLink:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
 }
 
 .actions {
   display: flex;
   align-items: center;
-  gap: var(--spacing-6);
+  gap: var(--spacing-4);
+}
+
+@media (min-width: 768px) {
+  .actions {
+    gap: var(--spacing-6);
+  }
 }
 
 .navLinkSecondary {
   display: none;
   font-family: var(--font-inter), sans-serif;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--color-text-secondary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: color 0.25s ease;
 }
 
-.navLinkSecondary:hover {
-  color: var(--color-primary-navy);
+@media (min-width: 768px) {
+  .navLinkSecondary {
+    color: rgba(255, 255, 255, 0.85) !important;
+  }
+
+  .navLinkSecondary:hover {
+    color: #ffffff !important;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -118,6 +180,108 @@
 }
 
 .ctaButton {
-  border-radius: var(--radius-pill);
-  padding: 0 var(--spacing-6);
+  border-radius: var(--radius-pill) !important;
+}
+
+.hamburgerButton {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .header {
+    height: 72px !important;
+    background-color: #ffffff !important;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06) !important;
+    padding: 0 20px !important;
+  }
+  
+  .headerBg {
+    display: none !important;
+  }
+  
+  .container {
+    padding: 0 !important;
+  }
+  
+  .ctaButton {
+    display: flex !important;
+    background: linear-gradient(135deg, #1E4ED8 0%, #3B82F6 100%) !important;
+    color: #ffffff !important;
+    border-radius: 9999px !important;
+    font-weight: 600 !important;
+    font-size: 0.8rem !important;
+    height: 36px !important;
+    padding: 0 16px !important;
+    border: none !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .hamburgerButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: #0F172A;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 12px;
+  }
+}
+
+@media (min-width: 768px) {
+  .ctaButton {
+    background-color: #ffffff !important;
+    color: #063CBB !important;
+    font-weight: 700 !important;
+    border: none !important;
+    font-size: 0.8rem !important;
+    height: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    transition: all 0.3s ease !important;
+    padding: 0 var(--spacing-5) !important;
+  }
+
+  .ctaButton:hover {
+    background-color: #f8fafc !important;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.25) !important;
+    transform: translateY(-1px);
+  }
+}
+
+/* Mobile Dropdown Menu Styling */
+.mobileDropdown {
+  position: absolute;
+  top: 72px;
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  display: flex;
+  flex-direction: column;
+  padding: 16px 20px;
+  gap: 12px;
+  z-index: 99;
+}
+
+.mobileNavLink {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0F172A !important;
+  text-decoration: none;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.04);
+  transition: color 0.2s ease;
+}
+
+.mobileNavLink:last-child {
+  border-bottom: none;
+}
+
+.mobileNavLink:active {
+  color: #1E4ED8 !important;
 }

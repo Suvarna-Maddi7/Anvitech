@@ -2,7 +2,7 @@
 
 import React, { useRef, Suspense, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { ContactShadows, Environment, Float, Html, PresentationControls } from '@react-three/drei';
+import { ContactShadows, Environment, Float, Html, PresentationControls, Sparkles, Grid } from '@react-three/drei';
 import * as THREE from 'three';
 import { Shield, Eye, Cloud, Zap } from 'lucide-react';
 import styles from './InteractiveCamera.module.css';
@@ -59,7 +59,80 @@ function ScanBeam() {
   );
 }
 
-function CameraModel() {
+function ShowcasePedestal() {
+  return (
+    <group position={[0, -1.8, 0]}>
+      {/* Base cylinder */}
+      <mesh receiveShadow position={[0, -0.05, 0]}>
+        <cylinderGeometry args={[2, 2.2, 0.1, 64]} />
+        <meshStandardMaterial color="#ffffff" roughness={0.1} metalness={0.1} />
+      </mesh>
+      {/* Glowing inner ring */}
+      <mesh position={[0, 0, 0]}>
+        <torusGeometry args={[1.9, 0.02, 16, 64]} />
+        <meshBasicMaterial color="#2A91EB" />
+      </mesh>
+      {/* Dark glass top */}
+      <mesh receiveShadow position={[0, 0.02, 0]}>
+        <cylinderGeometry args={[1.95, 1.95, 0.02, 64]} />
+        <meshPhysicalMaterial 
+          color="#0a1128" 
+          metalness={0.9} 
+          roughness={0.05} 
+          transmission={0.5} 
+          thickness={0.5} 
+        />
+      </mesh>
+    </group>
+  );
+}
+
+function BackgroundElements() {
+  const ringsRef = useRef<THREE.Group>(null);
+  
+  useFrame((state) => {
+    if (ringsRef.current) {
+      ringsRef.current.rotation.y = state.clock.elapsedTime * 0.05;
+      ringsRef.current.rotation.x = state.clock.elapsedTime * 0.02;
+    }
+  });
+
+  return (
+    <group>
+      {/* Infinite floor grid */}
+      <Grid 
+        position={[0, -1.8, 0]} 
+        args={[40, 40]} 
+        cellSize={1} 
+        cellThickness={1} 
+        cellColor="#e6f0fa" 
+        sectionSize={5} 
+        sectionThickness={1.5} 
+        sectionColor="#d0e2ff" 
+        fadeDistance={25} 
+        fadeStrength={1} 
+      />
+      
+      {/* Ambient background rings to fill empty space */}
+      <group ref={ringsRef} position={[0, 0, -8]}>
+        <mesh rotation={[0, 0, Math.PI / 4]}>
+          <torusGeometry args={[8, 0.03, 16, 100]} />
+          <meshBasicMaterial color="#2A91EB" transparent opacity={0.2} />
+        </mesh>
+        <mesh rotation={[Math.PI / 2.5, Math.PI / 3, 0]}>
+          <torusGeometry args={[12, 0.02, 16, 120]} />
+          <meshBasicMaterial color="#15479E" transparent opacity={0.15} />
+        </mesh>
+        <mesh rotation={[-Math.PI / 3, -Math.PI / 6, 0]}>
+          <torusGeometry args={[16, 0.015, 16, 150]} />
+          <meshBasicMaterial color="#9ACCF9" transparent opacity={0.1} />
+        </mesh>
+      </group>
+    </group>
+  );
+}
+
+export function CameraModel() {
   const domeRef = useRef<THREE.Group>(null);
 
   const irisSegments = useMemo(() => {
@@ -130,7 +203,7 @@ function CameraModel() {
       
       {/* Main Dome sphere */}
       <mesh position={[0, -0.1, -0.4]} castShadow>
-        <sphereGeometry args={[0.9, 128, 128]} />
+        <sphereGeometry args={[0.9, 32, 32]} />
         <meshStandardMaterial
           color="#ffffff"
           roughness={0.5}
@@ -141,7 +214,7 @@ function CameraModel() {
       {/* ═══ LENS ASSEMBLY (Perfect Z alignment, no tilt gaps) ═══ */}
       {/* Recessed bezel in camera front */}
       <mesh position={[0, -0.1, 0.42]} rotation={[Math.PI / 2, 0, 0]} castShadow>
-        <cylinderGeometry args={[0.54, 0.56, 0.2, 128]} />
+        <cylinderGeometry args={[0.54, 0.56, 0.2, 32]} />
         <meshStandardMaterial
           color="#ffffff"
           roughness={0.5}
@@ -150,7 +223,7 @@ function CameraModel() {
       </mesh>
       {/* Inner lens ring */}
       <mesh position={[0, -0.1, 0.51]} rotation={[Math.PI / 2, 0, 0]} castShadow>
-        <cylinderGeometry args={[0.46, 0.51, 0.06, 128]} />
+        <cylinderGeometry args={[0.46, 0.51, 0.06, 32]} />
         <meshPhysicalMaterial
           color="#1a1e28"
           roughness={0.1}
@@ -161,14 +234,14 @@ function CameraModel() {
       </mesh>
       {/* Chrome bezel rim */}
       <mesh position={[0, -0.1, 0.44]} rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[0.55, 0.01, 16, 64]} />
+        <torusGeometry args={[0.55, 0.01, 8, 32]} />
         <meshStandardMaterial color="#c8cdd5" roughness={0.05} metalness={0.95} />
       </mesh>
 
       {/* ═══ LENS GLASS (Multi-layer structure) ═══ */}
       {/* Convex lens glass */}
-      <mesh position={[0, -0.1, 0.54]}>
-        <sphereGeometry args={[0.38, 64, 64, 0, Math.PI * 2, 0, Math.PI / 2.5]} />
+      <mesh position={[0, -0.1, 0.54]} rotation={[Math.PI / 2, 0, 0]}>
+        <sphereGeometry args={[0.38, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2.5]} />
         <meshPhysicalMaterial
           color="#050510"
           metalness={0.4}
@@ -182,8 +255,8 @@ function CameraModel() {
         />
       </mesh>
       {/* Inner aperture backing */}
-      <mesh position={[0, -0.1, 0.51]}>
-        <sphereGeometry args={[0.32, 64, 64, 0, Math.PI * 2, 0, Math.PI / 2.8]} />
+      <mesh position={[0, -0.1, 0.51]} rotation={[Math.PI / 2, 0, 0]}>
+        <sphereGeometry args={[0.32, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2.8]} />
         <meshPhysicalMaterial
           color="#000008"
           metalness={0.8}
@@ -267,7 +340,7 @@ export function InteractiveCamera() {
       <Canvas
         shadows
         camera={{ position: [3.5, 1.8, 5.5], fov: 35 }}
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
         gl={{ powerPreference: 'high-performance', antialias: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.1 }}
       >
         <Suspense fallback={null}>
@@ -288,6 +361,8 @@ export function InteractiveCamera() {
           
           <ambientLight intensity={1.5} />
           <directionalLight position={[5, 10, 5]} intensity={1.0} color="#ffffff" castShadow />
+          
+          <Environment preset="city" environmentIntensity={0.8} />
 
           <PresentationControls
             global
@@ -301,7 +376,10 @@ export function InteractiveCamera() {
             </Float>
           </PresentationControls>
 
-          <ContactShadows position={[0, -1.8, 0]} opacity={0.3} scale={12} blur={2.5} far={4} color="#000000" />
+          <BackgroundElements />
+          <ShowcasePedestal />
+          <ContactShadows position={[0, -1.79, 0]} opacity={0.7} scale={20} blur={3} far={5} color="#0a1128" />
+          <Sparkles count={80} scale={14} size={3} speed={0.3} opacity={0.15} color="#2A91EB" />
         </Suspense>
       </Canvas>
     </div>

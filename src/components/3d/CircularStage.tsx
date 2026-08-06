@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { ContactShadows, Environment, Float, PresentationControls } from '@react-three/drei';
+import { ContactShadows, Float, PresentationControls } from '@react-three/drei';
 import * as THREE from 'three';
 
 interface CircularStageProps {
@@ -60,7 +60,7 @@ export function CircularStage({ children }: CircularStageProps) {
       >
         <PresentationControls 
           global 
-          snap={true as any}
+          snap={true}
           rotation={[0, 0.3, 0]} 
           polar={[-Math.PI / 3, Math.PI / 3]} 
           azimuth={[-Math.PI / 1.4, Math.PI / 2]}

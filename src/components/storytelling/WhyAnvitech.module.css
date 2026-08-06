@@ -5,8 +5,29 @@
 
 /* ── Stats Bar ── */
 .statsBar {
-  background: var(--color-primary-navy);
+  background: #ffffff;
   padding: var(--spacing-10, 2.5rem) 0;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(10, 17, 40, 0.05);
+  border-bottom: 1px solid rgba(10, 17, 40, 0.05);
+}
+
+.statsBg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.statsBgSvg {
+  width: 100%;
+  height: 100%;
+}
+
+.statsContainer {
+  position: relative;
+  z-index: 2;
 }
 
 .statsGrid {
@@ -28,14 +49,10 @@
   gap: var(--spacing-2);
   text-align: center;
   padding: var(--spacing-4) var(--spacing-2);
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
-}
-.statItem:last-child {
-  border-right: none;
+  transition: all 0.3s ease;
 }
 
 .statIcon {
-  color: rgba(255, 255, 255, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,7 +62,6 @@
   font-family: var(--font-inter), sans-serif;
   font-size: 2.5rem;
   font-weight: 800;
-  color: #ffffff;
   line-height: 1;
   letter-spacing: -0.03em;
 }
@@ -54,9 +70,82 @@
   font-family: var(--font-inter), sans-serif;
   font-size: 0.8rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.6);
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+
+/* Default (mobile - 2 columns):
+   Odd items (1st, 3rd) are on the left (blue background).
+   Even items (2nd, 4th) are on the right (white background).
+*/
+.statItem:nth-child(odd) {
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+.statItem:nth-child(odd) .statIcon {
+  color: rgba(255, 255, 255, 0.55);
+}
+.statItem:nth-child(odd) .statValue {
+  color: #ffffff;
+}
+.statItem:nth-child(odd) .statLabel {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.statItem:nth-child(even) {
+  border-right: none;
+}
+.statItem:nth-child(even) .statIcon {
+  color: rgba(6, 60, 187, 0.6);
+}
+.statItem:nth-child(even) .statValue {
+  color: #063CBB;
+}
+.statItem:nth-child(even) .statLabel {
+  color: rgba(10, 17, 40, 0.6);
+}
+
+/* On desktop (4 columns):
+   Items 1 & 2 are on the left (blue background).
+   Items 3 & 4 are on the right (white background).
+*/
+@media (min-width: 768px) {
+  .statItem:nth-child(1),
+  .statItem:nth-child(2) {
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .statItem:nth-child(1) .statIcon,
+  .statItem:nth-child(2) .statIcon {
+    color: rgba(255, 255, 255, 0.55);
+  }
+  .statItem:nth-child(1) .statValue,
+  .statItem:nth-child(2) .statValue {
+    color: #ffffff;
+  }
+  .statItem:nth-child(1) .statLabel,
+  .statItem:nth-child(2) .statLabel {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .statItem:nth-child(3),
+  .statItem:nth-child(4) {
+    border-right: 1px solid rgba(10, 17, 40, 0.08);
+  }
+  .statItem:nth-child(3) .statIcon,
+  .statItem:nth-child(4) .statIcon {
+    color: rgba(6, 60, 187, 0.6);
+  }
+  .statItem:nth-child(3) .statValue,
+  .statItem:nth-child(4) .statValue {
+    color: #063CBB;
+  }
+  .statItem:nth-child(3) .statLabel,
+  .statItem:nth-child(4) .statLabel {
+    color: rgba(10, 17, 40, 0.6);
+  }
+
+  .statItem:last-child {
+    border-right: none;
+  }
 }
 
 /* ── Section Header ── */

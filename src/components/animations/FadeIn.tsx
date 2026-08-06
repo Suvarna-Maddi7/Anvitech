@@ -18,10 +18,10 @@ export function FadeIn({
   ...props
 }: FadeInProps) {
   const directionOffset = {
-    up: 40,
-    down: -40,
-    left: 40,
-    right: -40,
+    up: 16,
+    down: -16,
+    left: 16,
+    right: -16,
     none: 0,
   };
 
@@ -38,6 +38,7 @@ export function FadeIn({
         delay: delay,
         ease: [0.21, 0.47, 0.32, 0.98], // Custom smooth easing
       }}
+      style={{ backfaceVisibility: 'hidden', willChange: 'transform, opacity' }}
       {...props}
     >
       {children}

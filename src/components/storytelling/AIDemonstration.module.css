@@ -166,12 +166,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 50%;
   box-shadow: 0 4px 20px rgba(10, 17, 40, 0.08);
   z-index: 10;
   border: 1px solid rgba(10, 17, 40, 0.05);
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .walkerSvg {
@@ -208,10 +209,10 @@
   50% { transform: rotate(-25deg); }
 }
 
-.leftArm { animation: armSwingLeft 1.2s infinite ease-in-out; }
-.rightArm { animation: armSwingRight 1.2s infinite ease-in-out; }
-.leftLeg { animation: legSwingLeft 1.2s infinite ease-in-out; }
-.rightLeg { animation: legSwingRight 1.2s infinite ease-in-out; }
+.leftArm { animation: armSwingLeft 1.2s infinite ease-in-out; will-change: transform; }
+.rightArm { animation: armSwingRight 1.2s infinite ease-in-out; will-change: transform; }
+.leftLeg { animation: legSwingLeft 1.2s infinite ease-in-out; will-change: transform; }
+.rightLeg { animation: legSwingRight 1.2s infinite ease-in-out; will-change: transform; }
 
 .trackingBox {
   position: absolute;
@@ -251,8 +252,7 @@
   position: absolute;
   top: var(--spacing-4);
   right: var(--spacing-4);
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(8px);
+  background: #ffffff;
   padding: var(--spacing-3) var(--spacing-4);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
@@ -261,6 +261,8 @@
   gap: var(--spacing-3);
   font-family: var(--font-inter), sans-serif;
   z-index: 20;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .notifIcon {

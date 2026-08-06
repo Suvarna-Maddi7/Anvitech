@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { Container } from '@/components/layout/Container';
 import { Typography } from '@/components/ui/Typography';
 import styles from './AIDemonstration.module.css';
-import { Bell, User } from 'lucide-react';
+import { Bell } from 'lucide-react';
 
 export function AIDemonstration() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -44,7 +44,7 @@ export function AIDemonstration() {
               <motion.div className={styles.textLayer} style={{ opacity: text1Opacity }}>
                 <Typography variant="h2">Intelligent Threat Detection.</Typography>
                 <Typography variant="body" className={styles.desc}>
-                  Anvitech's edge AI continuously analyzes the environment, instantly distinguishing between humans, vehicles, and safe objects.
+                  Anvitech&apos;s edge AI continuously analyzes the environment, instantly distinguishing between humans, vehicles, and safe objects.
                 </Typography>
               </motion.div>
               

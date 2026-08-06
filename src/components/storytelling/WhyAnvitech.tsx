@@ -72,15 +72,60 @@ export function WhyAnvitech() {
 
       {/* ── Stats Bar ── */}
       <div className={styles.statsBar}>
-        <Container size="wide">
+        {/* Split Background SVG */}
+        <div className={styles.statsBg}>
+          <svg viewBox="0 0 100 100" preserveAspectRatio="none" className={styles.statsBgSvg}>
+            <defs>
+              <linearGradient id="statsEdgeGlow" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#3B82F6" />
+                <stop offset="50%" stopColor="#60A5FA" />
+                <stop offset="100%" stopColor="#2563EB" />
+              </linearGradient>
+              <filter id="statsBloom" x="-30%" y="-30%" width="160%" height="160%">
+                <feGaussianBlur stdDeviation="1.5" result="blur1" />
+                <feGaussianBlur stdDeviation="4.0" result="blur2" />
+                <feMerge>
+                  <feMergeNode in="blur2" />
+                  <feMergeNode in="blur1" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+
+            {/* Blue fill on the left side */}
+            <path d="M 50,0 C 53,25 47,75 50,100 L 0,100 L 0,0 Z" fill="#063CBB" />
+            
+            {/* Glowing edge line */}
+            <path 
+              d="M 50,0 C 53,25 47,75 50,100" 
+              fill="none" 
+              stroke="url(#statsEdgeGlow)" 
+              strokeWidth={2} 
+              filter="url(#statsBloom)" 
+              style={{ vectorEffect: 'non-scaling-stroke' }}
+            />
+            {/* White highlight line */}
+            <path 
+              d="M 50,0 C 53,25 47,75 50,100" 
+              fill="none" 
+              stroke="#ffffff" 
+              strokeWidth={0.75} 
+              opacity="0.85" 
+              style={{ vectorEffect: 'non-scaling-stroke' }}
+            />
+          </svg>
+        </div>
+
+        <Container size="wide" className={styles.statsContainer}>
           <div className={styles.statsGrid}>
             {stats.map((s, i) => (
               <motion.div
                 key={s.label}
                 className={styles.statItem}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
+                transition={{ delay: i * 0.08, duration: 0.4 }}
+                style={{ backfaceVisibility: 'hidden', willChange: 'transform, opacity' }}
               >
                 <span className={styles.statIcon}>{s.icon}</span>
                 <span className={styles.statValue}><CountUp target={s.value} /></span>
@@ -94,9 +139,10 @@ export function WhyAnvitech() {
       {/* ── Section Header ── */}
       <Container size="default" className={styles.headerWrap}>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.55 }}
+          transition={{ duration: 0.45 }}
+          style={{ backfaceVisibility: 'hidden', willChange: 'transform, opacity' }}
         >
           <Typography variant="label" className={styles.label}>Why Choose Us</Typography>
           <Typography variant="h2" className={styles.heading}>
@@ -115,9 +161,10 @@ export function WhyAnvitech() {
             <motion.div
               key={p.title}
               className={styles.pillarCard}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.1 + i * 0.08, duration: 0.5 }}
+              transition={{ delay: 0.05 + i * 0.05, duration: 0.4 }}
+              style={{ backfaceVisibility: 'hidden', willChange: 'transform, opacity' }}
             >
               <div className={styles.pillarIcon}>{p.icon}</div>
               <Typography variant="h4" className={styles.pillarTitle}>{p.title}</Typography>
@@ -141,7 +188,7 @@ export function WhyAnvitech() {
                   <Star key={j} size={14} fill="#f59e0b" color="#f59e0b" />
                 ))}
               </div>
-              <Typography variant="body" className={styles.reviewText}>"{r.text}"</Typography>
+              <Typography variant="body" className={styles.reviewText}>&quot;{r.text}&quot;</Typography>
               <div className={styles.reviewAuthor}>
                 <div className={styles.reviewAvatar}>{r.name[0]}</div>
                 <div>

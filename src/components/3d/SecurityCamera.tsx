@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useRef, Suspense, useEffect } from 'react';
+import React, { useRef, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { ContactShadows, Environment, Float, PresentationControls, useGLTF, Text } from '@react-three/drei';
+import { ContactShadows, Environment, Float, PresentationControls, Sparkles, Grid } from '@react-three/drei';
 import * as THREE from 'three';
 
 /* ── Pulsing LED ── */
@@ -24,6 +24,54 @@ function PulsingLED({ position, color = '#235789', active = false }: { position:
       <meshBasicMaterial color={color} transparent opacity={0.8} />
       <pointLight color={color} intensity={active ? 2 : 1} distance={1} />
     </mesh>
+  );
+}
+
+function ShowcasePedestal() {
+  return (
+    <group position={[0, -1.8, 0]}>
+      {/* Base cylinder */}
+      <mesh receiveShadow position={[0, -0.05, 0]}>
+        <cylinderGeometry args={[2, 2.2, 0.1, 64]} />
+        <meshStandardMaterial color="#ffffff" roughness={0.1} metalness={0.1} />
+      </mesh>
+      {/* Glowing inner ring */}
+      <mesh position={[0, 0, 0]}>
+        <torusGeometry args={[1.9, 0.02, 16, 64]} />
+        <meshBasicMaterial color="#2A91EB" />
+      </mesh>
+      {/* Dark glass top */}
+      <mesh receiveShadow position={[0, 0.02, 0]}>
+        <cylinderGeometry args={[1.95, 1.95, 0.02, 64]} />
+        <meshPhysicalMaterial 
+          color="#0a1128" 
+          metalness={0.9} 
+          roughness={0.05} 
+          transmission={0.5} 
+          thickness={0.5} 
+        />
+      </mesh>
+    </group>
+  );
+}
+
+function BackgroundElements({ isNight }: { isNight: boolean }) {
+  return (
+    <group>
+      {/* Infinite floor grid */}
+      <Grid 
+        position={[0, -1.8, 0]} 
+        args={[40, 40]} 
+        cellSize={1} 
+        cellThickness={1} 
+        cellColor={isNight ? "#1a2a4a" : "#e6f0fa"} 
+        sectionSize={5} 
+        sectionThickness={1.5} 
+        sectionColor={isNight ? "#2a4a7a" : "#d0e2ff"} 
+        fadeDistance={25} 
+        fadeStrength={1} 
+      />
+    </group>
   );
 }
 
@@ -114,6 +162,9 @@ function AudioWaves({ active }: { active: boolean }) {
   );
 }
 
+// Pre-allocated vector to avoid garbage collection overhead in useFrame
+const solarScaleVec = new THREE.Vector3();
+
 // ── Feature 4: Solar Panel ──
 function SolarPanel({ active }: { active: boolean }) {
   const groupRef = useRef<THREE.Group>(null);
@@ -121,7 +172,8 @@ function SolarPanel({ active }: { active: boolean }) {
   useFrame(() => {
     if (groupRef.current) {
       const targetScale = active ? 1 : 0.001;
-      groupRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
+      solarScaleVec.set(targetScale, targetScale, targetScale);
+      groupRef.current.scale.lerp(solarScaleVec, 0.1);
     }
   });
 
@@ -150,6 +202,14 @@ function SolarPanel({ active }: { active: boolean }) {
     </group>
   );
 }
+const PARTICLE_POSITIONS = [
+  [-0.12, 0, 0.18],
+  [0.22, 0, -0.05],
+  [-0.05, 0, -0.21],
+  [0.15, 0, 0.12],
+  [-0.23, 0, -0.11],
+  [0.08, 0, 0.24]
+];
 
 // ── Feature 5: Cloud Storage ──
 function DataParticles({ active }: { active: boolean }) {
@@ -187,7 +247,7 @@ function DataParticles({ active }: { active: boolean }) {
       {/* Flying particles */}
       <group ref={particlesRef}>
         {Array.from({ length: 6 }).map((_, i) => (
-          <mesh key={i} position={[(Math.random() - 0.5) * 0.5, 0, (Math.random() - 0.5) * 0.5]}>
+          <mesh key={i} position={PARTICLE_POSITIONS[i] as [number, number, number]}>
             <boxGeometry args={[0.1, 0.1, 0.1]} />
             <meshBasicMaterial color="#4F46E5" transparent opacity={0.8} />
           </mesh>
@@ -266,7 +326,7 @@ function BulletCameraModel({ activeFeatureIndex }: { activeFeatureIndex: number 
       <group ref={bodyRef}>
       {/* ═══ CAMERA BODY (Bullet style) ═══ */}
       <mesh position={[0, 0, 0]} rotation={[0, 0, Math.PI / 2]} castShadow>
-        <capsuleGeometry args={[0.45, 1.2, 32, 64]} />
+        <capsuleGeometry args={[0.45, 1.2, 16, 32]} />
         <meshStandardMaterial
           color="#ffffff"
           roughness={0.5}
@@ -285,7 +345,7 @@ function BulletCameraModel({ activeFeatureIndex }: { activeFeatureIndex: number 
 
       {/* ═══ FRONT SHROUD ═══ */}
       <mesh position={[0.85, 0, 0]} rotation={[0, 0, Math.PI / 2]} castShadow>
-        <cylinderGeometry args={[0.42, 0.48, 0.5, 128]} />
+        <cylinderGeometry args={[0.42, 0.48, 0.5, 32]} />
         <meshStandardMaterial
           color="#ffffff"
           roughness={0.5}
@@ -403,12 +463,15 @@ function BulletCameraModel({ activeFeatureIndex }: { activeFeatureIndex: number 
   );
 }
 
+// Pre-allocated colors to prevent garbage collection overhead in useFrame
+const colorWhite = new THREE.Color('#F4F7FA');
+const colorDark = new THREE.Color('#050a14');
+
 // Global scene controller for Night Vision lighting
 function SceneLighting({ activeFeatureIndex }: { activeFeatureIndex: number }) {
   const isNight = activeFeatureIndex === 2;
   const targetIntensity = isNight ? 0.05 : 1.5;
-  const targetEnv = isNight ? 0.1 : 1;
-  const targetBg = isNight ? '#050a14' : '#F4F7FA'; // Update canvas background internally
+  const targetColor = isNight ? colorDark : colorWhite;
   
   const ambientRef = useRef<THREE.AmbientLight>(null);
   const bgColor = useRef(new THREE.Color('#F4F7FA'));
@@ -417,7 +480,7 @@ function SceneLighting({ activeFeatureIndex }: { activeFeatureIndex: number }) {
     if (ambientRef.current) {
       ambientRef.current.intensity = THREE.MathUtils.lerp(ambientRef.current.intensity, targetIntensity, 0.05);
     }
-    bgColor.current.lerp(new THREE.Color(targetBg), 0.05);
+    bgColor.current.lerp(targetColor, 0.05);
     state.scene.background = bgColor.current;
   });
 
@@ -438,7 +501,7 @@ function SceneLighting({ activeFeatureIndex }: { activeFeatureIndex: number }) {
           <directionalLight position={[-5, 5, -5]} intensity={0.2} color="#4F46E5" />
         </>
       )}
-      {/* Environment preset removed due to fetch failure. Lighting is handled by standard lights. */}
+      <Environment preset="city" environmentIntensity={isNight ? 0.1 : 0.8} />
     </>
   );
 }
@@ -472,7 +535,10 @@ export function SecurityCamera({ activeFeatureIndex = 0 }: { activeFeatureIndex?
             </Float>
           </PresentationControls>
 
-          <ContactShadows position={[0, -1.8, 0]} opacity={0.3} scale={14} blur={2.5} far={5} color="#0A1128" />
+          <BackgroundElements isNight={activeFeatureIndex === 2} />
+          <ShowcasePedestal />
+          <ContactShadows position={[0, -1.79, 0]} opacity={0.7} scale={20} blur={3} far={5} color="#0a1128" />
+          <Sparkles count={80} scale={14} size={3} speed={0.3} opacity={activeFeatureIndex === 2 ? 0.4 : 0.15} color="#2A91EB" />
         </Suspense>
       </Canvas>
     </div>

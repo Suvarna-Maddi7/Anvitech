@@ -1,88 +1,72 @@
 'use client';
 
 import React from 'react';
-import styles from './Hero.module.css';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Container } from '@/components/layout/Container';
-import { Typography } from '@/components/ui/Typography';
-import { Button } from '@/components/ui/Button';
-import { FadeIn } from '@/components/animations/FadeIn';
-import dynamic from 'next/dynamic';
-
-const InteractiveCamera = dynamic(
-  () => import('@/components/3d/InteractiveCamera').then(mod => mod.InteractiveCamera),
-  { ssr: false }
-);
-
-import { HeroBackground } from './HeroBackground';
-import { TrustIndicators } from './TrustIndicators';
-import { ScrollIndicator } from './ScrollIndicator';
-import { ArrowRight, Play } from 'lucide-react';
+import { useHeroMouse } from './hooks/useHeroMouse';
+import { HeroBackgroundSVG } from './components/HeroBackgroundSVG';
+import { HeroContent } from './components/HeroContent';
+import { CameraScene } from './components/CameraScene';
+import { FloatingLabels } from './components/FloatingLabels';
+import styles from './Hero.module.css';
 
 export function Hero() {
+  const { scrollY, scrollYProgress } = useScroll();
+  const { springX, springY } = useHeroMouse();
+
+  // Scroll transformations
+  const leftScale = useTransform(scrollY, [0, 600], [1, 1.04]);
+  const textOpacity = useTransform(scrollY, [0, 300], [1, 0]);
+  const buttonsY = useTransform(scrollY, [0, 400], [0, -35]);
+  const circlesRotate = useTransform(scrollY, [0, 1000], [0, 45]);
+
   return (
     <section className={styles.heroSection}>
-      <HeroBackground />
-      
+      {/* 1. Left SVG Panel Background */}
+      <HeroBackgroundSVG 
+        springX={springX} 
+        springY={springY} 
+        leftScale={leftScale} 
+      />
+
+      {/* 2. Absolute Content Layer above the SVG */}
+      <div className={styles.contentLayerAbsolute}>
+        <HeroContent 
+          textOpacity={textOpacity} 
+          buttonsY={buttonsY} 
+        />
+      </div>
+
       <Container size="wide" className={styles.container}>
-        {/* Left Content Area */}
-        <div className={styles.contentArea}>
-          <FadeIn delay={0.1} className={styles.badgeWrap}>
-            <div className={styles.badge}>
-              <span className={styles.badgeDot} />
-              Introducing Anvitech Pro
-            </div>
-          </FadeIn>
+        <div className={styles.leftPlaceholder} />
 
-          <FadeIn delay={0.2} className={styles.titleWrap}>
-            <Typography variant="display" className={styles.headline}>
-              Next-Gen Security <br />
-              <span className={styles.textAccent}>For The Modern Enterprise.</span>
-            </Typography>
-          </FadeIn>
+        {/* 3. Right Visual Segment */}
+        <div className={styles.rightSection}>
+          {/* Slower rotating background graphics */}
+          <motion.div 
+            className={styles.bgGraphics}
+            style={{ rotate: circlesRotate }}
+          >
+            <div className={styles.perspectiveGrid} />
+            <div className={`${styles.circularGraphic} ${styles.circularGraphic1}`} />
+            <div className={`${styles.circularGraphic} ${styles.circularGraphic2}`} />
+            <div className={`${styles.circularGraphic} ${styles.circularGraphic3}`} />
+          </motion.div>
 
-          <FadeIn delay={0.3} className={styles.descWrap}>
-            <Typography variant="body" className={styles.description}>
-              Elevate your security posture with AI-driven surveillance, 
-              real-time threat detection, and seamless cloud integration. 
-              Built for organizations that demand the best.
-            </Typography>
-          </FadeIn>
+          {/* 3D camera model and platform scene */}
+          <CameraScene 
+            springX={springX} 
+            springY={springY} 
+            scrollYProgress={scrollYProgress} 
+          />
 
-          <FadeIn delay={0.4} className={styles.actions}>
-            <Button variant="primary" size="lg" rightIcon={<ArrowRight size={18} />}>
-              Explore Solutions
-            </Button>
-            <Button variant="ghost" size="lg" leftIcon={<Play size={18} />}>
-              View Demo
-            </Button>
-          </FadeIn>
-
-          <FadeIn delay={0.6} className={styles.trustArea}>
-            <TrustIndicators />
-          </FadeIn>
-        </div>
-
-        {/* Right 3D Area */}
-        <div className={styles.visualArea}>
-          <FadeIn delay={0.4} duration={1} className={styles.canvasContainer}>
-            <InteractiveCamera />
-          </FadeIn>
-          
-          {/* Decorative Labels for 3D */}
-          <FadeIn delay={0.8} className={styles.floatingLabel} style={{ top: '20%', right: '10%' }}>
-            <span>4K Ultra HD</span>
-          </FadeIn>
-          <FadeIn delay={0.9} className={styles.floatingLabel} style={{ bottom: '30%', left: '10%' }}>
-            <span>AI Motion Tracking</span>
-          </FadeIn>
+          {/* Glassmorphic floating pills/labels */}
+          <FloatingLabels 
+            springX={springX} 
+            springY={springY} 
+          />
         </div>
       </Container>
-
-      <div className={styles.scrollIndicatorWrapper}>
-        <FadeIn delay={1.2}>
-          <ScrollIndicator />
-        </FadeIn>
-      </div>
     </section>
   );
 }
