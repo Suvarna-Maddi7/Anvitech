@@ -21,7 +21,7 @@ export function HeroPlatform() {
       {/* Cylinder Base Platform */}
       <mesh position={[0, -0.04, 0]}>
         <cylinderGeometry args={[2.0, 2.05, 0.06, 64]} />
-        <meshStandardMaterial color="#f8fafc" roughness={0.3} metalness={0.1} />
+        <meshStandardMaterial color="#f8fafc" roughness={0.3} metalness={0.1} transparent opacity={0.05} />
       </mesh>
 
       {/* Inner core */}
@@ -30,9 +30,11 @@ export function HeroPlatform() {
         <meshPhysicalMaterial 
           color="#063CBB" 
           emissive="#2563EB"
-          emissiveIntensity={1.5}
+          emissiveIntensity={0.5}
           roughness={0.15}
           metalness={0.8}
+          transparent
+          opacity={0.2}
         />
       </mesh>
     </group>
