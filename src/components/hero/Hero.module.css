@@ -1,7 +1,7 @@
 .heroSection {
   position: relative;
   height: 100vh;
-  min-height: 750px;
+  min-height: 850px;
   width: 100%;
   background-color: #ffffff;
   overflow: hidden;
@@ -13,6 +13,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  min-height: inherit;
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
@@ -226,6 +227,7 @@
   .rightSection {
     width: 58%;
     height: 100%;
+    min-height: inherit;
   }
 }
 
@@ -329,119 +331,338 @@
   color: #2563EB;
 }
 
+/* Layout display controls */
+.desktopLayoutOnly {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+}
+.mobileLayoutOnly {
+  display: none;
+}
+
 @media (max-width: 1023px) {
-  .heroSection {
-    height: auto;
-    min-height: auto;
-    flex-direction: column;
-    padding-top: 0;
-    padding-bottom: 120px; /* Space for the floating bottom actions */
-    background: #ffffff;
+  .desktopLayoutOnly {
+    display: none;
   }
-  
-  .leftPanel {
+  .mobileLayoutOnly {
     display: block;
+    width: 100%;
+    position: relative;
+    background-color: #ffffff;
+    overflow-x: hidden;
+    padding-bottom: 120px; /* space for floating bottom action bar */
+  }
+
+  /* 2. HERO BACKGROUND */
+  .mobileCurveBg {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 440px; /* Curve height matches text height area */
-    z-index: 5;
-    pointer-events: none;
-  }
-
-  .leftPanel svg {
-    width: 100%;
-    height: 100%;
+    right: 0;
+    height: 520px;
+    background: linear-gradient(135deg, #051A40 0%, #0D3E99 50%, #1E5AD4 100%);
+    border-bottom-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+    z-index: 1;
+    overflow: hidden;
   }
   
-  .contentLayerAbsolute {
+  /* Soft ambient lights on the curve background */
+  .mobileCurveBg::after {
+    content: '';
+    position: absolute;
+    bottom: -150px;
+    left: -50px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(96, 165, 250, 0.2) 0%, transparent 70%);
+    z-index: 2;
+  }
+
+  /* HERO SPLIT (New Horizontal Layout) */
+  .mHeroSplit {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 100px 16px 20px 16px; /* Space for header */
     position: relative;
-    top: 0;
-    left: 0;
-    max-width: 100%;
-    padding: 96px 20px 20px 20px; /* 72px header + 24px spacing = 96px top; 20px horizontal margins */
-    pointer-events: auto;
+    overflow: hidden;
     z-index: 10;
   }
 
-  .contentWrap {
-    max-width: 100%;
+  /* 3. TEXT CONTENT (Inside blue area) */
+  .mContent {
+    width: 60%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .badgeWrap {
-    margin-bottom: 20px !important; /* Badge → Heading: 20px */
+  .mBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 9999px;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: #ffffff;
+    margin-bottom: 12px;
   }
 
-  .badge {
-    background: rgba(255, 255, 255, 0.08) !important;
-    border: 1px solid rgba(255, 255, 255, 0.12) !important;
-    color: #ffffff !important;
-    font-size: 14px !important; /* 14px text badge */
-  }
-
-  .badgeDot {
+  .mBadgeDot {
+    width: 4px;
+    height: 4px;
     background-color: #60A5FA;
-    box-shadow: 0 0 8px #60A5FA;
+    border-radius: 50%;
+    box-shadow: 0 0 4px #60A5FA;
   }
 
-  .headline {
-    color: #ffffff !important;
-    font-size: 2.5rem !important; /* Scaled header equivalent to mobile */
-    line-height: 1.15;
-    margin-top: 0px;
-    margin-bottom: 24px !important; /* Heading → Description: 24px */
+  .mHeadline {
+    font-family: var(--font-syne), sans-serif;
+    font-size: 22px;
     font-weight: 700;
+    line-height: 1.2;
+    color: #ffffff;
+    margin-top: 0;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
   }
 
-  .textAccent {
-    background: linear-gradient(90deg, #3B82F6 0%, #60A5FA 100%);
+  .mHighlight {
+    background: linear-gradient(90deg, #60A5FA 0%, #93C5FD 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    display: block;
-    margin-top: 4px;
+    display: inline-block;
   }
 
-  .description {
-    color: #475569 !important; /* Dark gray for maximum readability */
-    font-size: 17px !important; /* 17px text description */
-    line-height: 1.6;
-    margin-top: 60px; /* Push description below the top panel curve */
-    margin-bottom: 28px !important; /* Description → Button: 28px */
+  .mSubtext {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 12px;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 0;
+    margin-bottom: 16px;
     max-width: 100%;
   }
 
-  .primaryButton {
-    background: linear-gradient(135deg, #1E4ED8 0%, #3B82F6 100%) !important; /* Blue gradient */
-    border: none !important;
-    box-shadow: 0 10px 25px rgba(30, 78, 216, 0.25) !important;
-    padding: 14px 28px !important;
-    height: 56px !important; /* Height: 56px */
-    border-radius: 14px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+  .mCta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+    border-radius: 9999px;
+    color: #ffffff;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+    transition: all 0.2s ease;
+    margin-top: 4px;
   }
 
-  .secondaryButton {
-    display: none !important;
+  .mCtaIcon {
+    transition: transform 0.2s ease;
+  }
+
+  .mCta:active .mCtaIcon {
+    transform: translateX(4px);
+  }
+
+  /* 4. PRODUCT VISUAL (Right Side) */
+  .mVisualArea {
+    position: relative;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+
+  .mCameraContainer {
+    position: relative;
+    width: 100%;
+    max-width: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: mFloat 4s ease-in-out infinite;
   }
   
-  .rightSection {
-    height: 380px;
+  .mCameraContainer::before {
+    content: '';
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: -1;
+  }
+
+  .mCameraImage {
     width: 100%;
-    margin-top: -120px; /* Overlay effect with the curve base */
-    z-index: 8;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 20px rgba(2, 27, 79, 0.15));
   }
 
-  .pillsOverlay {
-    display: none;
+  @keyframes mFloat {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
   }
 
-  .perspectiveGrid {
-    opacity: 0.02;
+  /* 5. FEATURE TAGS (Floating cards) */
+  .mFloatCard {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+    background: #ffffff;
+    border-radius: 9999px;
+    box-shadow: 0 4px 12px rgba(2, 27, 79, 0.1);
+    z-index: 15;
+    white-space: nowrap;
+  }
+
+  .mFloatTitle {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 8px;
+    font-weight: 600;
+    color: #021B4F;
+  }
+
+  /* Specific positions for floating cards around camera */
+  .fcIP67 {
+    top: -10px;
+    right: -10px;
+  }
+
+  .fcCloud {
+    top: 40%;
+    right: -30px;
+  }
+
+  .fcHD {
+    bottom: 20px;
+    left: -20px;
+  }
+
+  .fcAI {
+    bottom: -15px;
+    right: 0px;
+  }
+
+  /* 6. FEATURE STRIP */
+  .mFeatureStrip {
+    margin: 30px 20px 0 20px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 20px 10px;
+    box-shadow: 0 10px 30px rgba(2, 27, 79, 0.04);
+    border: 1px solid rgba(2, 27, 79, 0.03);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    z-index: 10;
+    position: relative;
+  }
+
+  .mStripItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .mStripIconBox {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(37, 99, 235, 0.06);
+    color: #2563EB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+
+  .mStripTitle {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: #021B4F;
+    line-height: 1.2;
+    margin-bottom: 2px;
+  }
+
+  .mStripDesc {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 8px;
+    color: #64748B;
+    line-height: 1.1;
+  }
+
+  /* 7. BOTTOM ACTION BAR */
+  .mBottomBar {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    height: 68px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 12px 35px rgba(2, 27, 79, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 10px;
+    z-index: 99;
+  }
+
+  .mBottomAction {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    text-decoration: none;
+    width: 80px;
+    height: 100%;
+    color: #64748B;
+    transition: all 0.2s ease;
+  }
+
+  .mBottomIconBox {
+    color: #021B4F;
+    transition: transform 0.2s ease;
+  }
+
+  .mBottomLabel {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: #021B4F;
+  }
+
+  /* WhatsApp highlighted action style */
+  .mWhatsAppAction .mBottomIconBox {
+    color: #25D366;
+  }
+
+  .mBottomAction:active .mBottomIconBox {
+    transform: scale(1.1);
   }
 }

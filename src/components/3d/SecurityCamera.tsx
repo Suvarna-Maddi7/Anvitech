@@ -537,7 +537,7 @@ export function SecurityCamera({ activeFeatureIndex = 0 }: { activeFeatureIndex?
 
           <BackgroundElements isNight={activeFeatureIndex === 2} />
           <ShowcasePedestal />
-          <ContactShadows position={[0, -1.79, 0]} opacity={0.7} scale={20} blur={3} far={5} color="#0a1128" />
+          <ContactShadows position={[0, -1.79, 0]} opacity={0.7} scale={20} blur={3} far={5} color="#0a1128" frames={1} />
           <Sparkles count={80} scale={14} size={3} speed={0.3} opacity={activeFeatureIndex === 2 ? 0.4 : 0.15} color="#2A91EB" />
         </Suspense>
       </Canvas>

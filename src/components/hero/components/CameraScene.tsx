@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { PresentationControls, ContactShadows, Sparkles, Environment } from '@react-three/drei';
+import React, { useRef, useMemo } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { PresentationControls, ContactShadows, Sparkles, Environment, AdaptiveDpr, AdaptiveEvents, Preload } from '@react-three/drei';
 import { MotionValue } from 'framer-motion';
 import * as THREE from 'three';
 
@@ -20,6 +20,17 @@ function ScrolledGroup({ mouseX, mouseY, scrollYProgress }: ScrolledGroupProps) 
   const groupRef = useRef<THREE.Group>(null);
   const cameraGroupRef = useRef<THREE.Group>(null);
   const platformGroupRef = useRef<THREE.Group>(null);
+  
+  const { width } = useThree((state) => state.size);
+
+  // Dynamically scale the model group based on canvas width to keep it perfectly balanced
+  const responsiveScale = useMemo(() => {
+    if (width === 0) return 1.1;
+    if (width < 650) return 1.4;
+    if (width < 900) return 1.3;
+    if (width < 1200) return 1.2;
+    return 1.1;
+  }, [width]);
 
   useFrame((state: { clock: { getElapsedTime: () => number } }) => {
     const t = state.clock.getElapsedTime();
@@ -47,7 +58,7 @@ function ScrolledGroup({ mouseX, mouseY, scrollYProgress }: ScrolledGroupProps) 
   });
 
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} scale={responsiveScale} position={[0, -0.2, 0]}>
       <group ref={cameraGroupRef}>
         <CameraModel />
       </group>
@@ -68,7 +79,7 @@ export function CameraScene({ springX, springY, scrollYProgress }: CameraScenePr
   return (
     <div className={styles.canvasWrapper}>
       <Canvas
-        camera={{ position: [3.5, 1.8, 5.5], fov: 32 }}
+        camera={{ position: [3.8, 1.0, 6.2], fov: 32 }}
         dpr={[1, 1.5]}
         gl={{ 
           powerPreference: 'high-performance', 
@@ -97,8 +108,12 @@ export function CameraScene({ springX, springY, scrollYProgress }: CameraScenePr
           <ScrolledGroup mouseX={springX} mouseY={springY} scrollYProgress={scrollYProgress} />
         </PresentationControls>
 
-        <ContactShadows position={[0, -1.49, 0]} opacity={0.6} scale={20} blur={3} far={5} color="#021B4F" />
-        <Sparkles count={50} scale={12} size={2.5} speed={0.3} opacity={0.12} color="#3B82F6" />
+        <ContactShadows position={[0, -1.49, 0]} opacity={0.6} scale={20} blur={3} far={5} color="#021B4F" frames={1} />
+        <Sparkles count={30} scale={12} size={2.5} speed={0.3} opacity={0.12} color="#3B82F6" />
+        
+        <AdaptiveDpr pixelated />
+        <AdaptiveEvents />
+        <Preload all />
       </Canvas>
     </div>
   );

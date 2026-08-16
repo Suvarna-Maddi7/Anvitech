@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { MeshTransmissionMaterial, Float, Environment } from '@react-three/drei';
+import { MeshTransmissionMaterial, Float, Environment, AdaptiveDpr, AdaptiveEvents, Preload } from '@react-three/drei';
 import * as THREE from 'three';
 
 // Mouse tracking
@@ -124,7 +124,8 @@ function LiquidRibbon() {
         <tubeGeometry args={[mainCurve, 120, 0.45, 12, false]} />
         <MeshTransmissionMaterial
           backside
-          samples={4}
+          samples={1}
+          resolution={512}
           thickness={0.6}
           roughness={0.08}
           clearcoat={0.8}
@@ -155,7 +156,8 @@ function LiquidRibbon() {
       <mesh ref={secondaryMeshRef}>
         <tubeGeometry args={[secondaryCurve, 80, 0.12, 6, false]} />
         <MeshTransmissionMaterial
-          samples={2}
+          samples={1}
+          resolution={256}
           thickness={0.2}
           roughness={0.05}
           ior={1.35}
@@ -213,6 +215,9 @@ export function LiquidFlowCanvas() {
         <pointLight position={[2, 2, 4]} intensity={3} color="#6A9BFF" />
         <Environment preset="city" />
         <LiquidRibbon />
+        <AdaptiveDpr pixelated />
+        <AdaptiveEvents />
+        <Preload all />
       </Canvas>
     </div>
   );

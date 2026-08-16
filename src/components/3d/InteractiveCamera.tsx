@@ -2,7 +2,7 @@
 
 import React, { useRef, Suspense, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { ContactShadows, Environment, Float, Html, PresentationControls, Sparkles, Grid } from '@react-three/drei';
+import { ContactShadows, Environment, Float, Html, PresentationControls, Sparkles, Grid, AdaptiveDpr, AdaptiveEvents, Preload } from '@react-three/drei';
 import * as THREE from 'three';
 import { Shield, Eye, Cloud, Zap } from 'lucide-react';
 import styles from './InteractiveCamera.module.css';
@@ -378,8 +378,12 @@ export function InteractiveCamera() {
 
           <BackgroundElements />
           <ShowcasePedestal />
-          <ContactShadows position={[0, -1.79, 0]} opacity={0.7} scale={20} blur={3} far={5} color="#0a1128" />
-          <Sparkles count={80} scale={14} size={3} speed={0.3} opacity={0.15} color="#2A91EB" />
+          <ContactShadows position={[0, -1.79, 0]} opacity={0.7} scale={20} blur={3} far={5} color="#0a1128" frames={1} />
+          <Sparkles count={40} scale={14} size={3} speed={0.3} opacity={0.15} color="#2A91EB" />
+
+          <AdaptiveDpr pixelated />
+          <AdaptiveEvents />
+          <Preload all />
         </Suspense>
       </Canvas>
     </div>

@@ -189,10 +189,18 @@
 
 @media (max-width: 767px) {
   .header {
-    height: 72px !important;
+    position: fixed;
+    top: 16px !important;
+    left: 16px !important;
+    right: 16px !important;
+    width: auto !important;
+    height: 60px !important;
     background-color: #ffffff !important;
-    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06) !important;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08) !important;
     padding: 0 20px !important;
+    border-radius: 9999px !important;
+    border: 1px solid rgba(15, 23, 42, 0.04) !important;
+    transition: all 0.3s ease;
   }
   
   .headerBg {
@@ -201,20 +209,33 @@
   
   .container {
     padding: 0 !important;
+    height: 100% !important;
   }
   
+  .logoIcon {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .logoText {
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    color: #021B4F !important;
+  }
+
   .ctaButton {
     display: flex !important;
     background: linear-gradient(135deg, #1E4ED8 0%, #3B82F6 100%) !important;
     color: #ffffff !important;
     border-radius: 9999px !important;
     font-weight: 600 !important;
-    font-size: 0.8rem !important;
+    font-size: 12px !important;
     height: 36px !important;
     padding: 0 16px !important;
     border: none !important;
     align-items: center !important;
     justify-content: center !important;
+    box-shadow: 0 4px 12px rgba(30, 78, 216, 0.2) !important;
   }
 
   .hamburgerButton {
@@ -254,11 +275,12 @@
 /* Mobile Dropdown Menu Styling */
 .mobileDropdown {
   position: absolute;
-  top: 72px;
-  left: 0;
-  right: 0;
+  top: 80px;
+  left: 16px;
+  right: 16px;
   background-color: #ffffff;
-  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 20px;
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
   display: flex;
   flex-direction: column;
