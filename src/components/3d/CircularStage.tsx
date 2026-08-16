@@ -51,7 +51,7 @@ function StageElements({ children }: CircularStageProps) {
 
 export function CircularStage({ children }: CircularStageProps) {
   return (
-    <div style={{ width: '100%', height: '500px', position: 'relative' }}>
+    <div style={{ width: '100%', height: '500px', position: 'relative', touchAction: 'none' }}>
       <Canvas 
         shadows 
         camera={{ position: [0, 2, 8], fov: 45 }}

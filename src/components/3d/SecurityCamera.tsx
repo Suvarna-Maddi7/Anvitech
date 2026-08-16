@@ -508,7 +508,7 @@ function SceneLighting({ activeFeatureIndex }: { activeFeatureIndex: number }) {
 
 export function SecurityCamera({ activeFeatureIndex = 0 }: { activeFeatureIndex?: number }) {
   return (
-    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+    <div style={{ width: '100%', height: '100%', position: 'relative', touchAction: 'none' }}>
       <Canvas
         shadows
         camera={{ position: [4, 1.5, 5], fov: 35 }}

@@ -106,26 +106,16 @@ export function Hero() {
 
           {/* Visual / Product Section */}
           <div className={styles.mVisualArea}>
-            {/* Floating cards */}
-            <div className={`${styles.mFloatCard} ${styles.fcIP67}`}>
-              <div className={styles.mFloatTitle}>IP67 Waterproof</div>
-            </div>
-
-            <div className={`${styles.mFloatCard} ${styles.fcCloud}`}>
-              <div className={styles.mFloatTitle}>Cloud Storage</div>
-            </div>
-
-            <div className={`${styles.mFloatCard} ${styles.fcHD}`}>
-              <div className={styles.mFloatTitle}>4K Ultra HD</div>
-            </div>
-
-            <div className={`${styles.mFloatCard} ${styles.fcAI}`}>
-              <div className={styles.mFloatTitle}>AI Motion Tracking</div>
-            </div>
 
             {/* Camera model */}
             <div className={styles.mCameraContainer}>
-              <img src="/products/pro_camera.png" alt="Anvitech Dome Camera" className={styles.mCameraImage} />
+              <div style={{ width: '100%', height: '180px', position: 'relative' }}>
+                <CameraScene 
+                  springX={springX} 
+                  springY={springY} 
+                  scrollYProgress={scrollYProgress} 
+                />
+              </div>
             </div>
           </div>
         </div>

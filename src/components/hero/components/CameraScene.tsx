@@ -77,7 +77,7 @@ interface CameraSceneProps {
 
 export function CameraScene({ springX, springY, scrollYProgress }: CameraSceneProps) {
   return (
-    <div className={styles.canvasWrapper}>
+    <div className={styles.canvasWrapper} style={{ touchAction: 'none' }}>
       <Canvas
         camera={{ position: [3.8, 1.0, 6.2], fov: 32 }}
         dpr={[1, 1.5]}

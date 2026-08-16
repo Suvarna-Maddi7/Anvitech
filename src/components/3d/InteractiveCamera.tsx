@@ -324,11 +324,7 @@ export function CameraModel() {
         <ScanBeam />
       </group>
 
-      {/* Hotspots mapped correctly to components */}
-      <Hotspot position={[0, -0.1, 1.4]} label="4K Ultra HD" icon={<Eye size={14} />} />
-      <Hotspot position={[0, 0.9, -1.0]} label="IP67 Weatherproof" icon={<Shield size={14} />} />
-      <Hotspot position={[-1.2, -0.1, -0.4]} label="Cloud Storage" icon={<Cloud size={14} />} />
-      <Hotspot position={[1.2, -0.4, 0]} label="AI Motion Tracking" icon={<Zap size={14} />} />
+      {/* Hotspots removed to prevent overlapping with HTML floating labels */}
       </group>
     </group>
   );
@@ -336,7 +332,7 @@ export function CameraModel() {
 
 export function InteractiveCamera() {
   return (
-    <div style={{ width: '100%', height: '100%', minHeight: '600px', position: 'relative' }}>
+    <div style={{ width: '100%', height: '100%', minHeight: '600px', position: 'relative', touchAction: 'none' }}>
       <Canvas
         shadows
         camera={{ position: [3.5, 1.8, 5.5], fov: 35 }}
